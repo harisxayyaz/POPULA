@@ -68,7 +68,7 @@ const WebsiteAnalysis: React.FC = () => {
             title="Lighthouse Report"
             src="/report.report.html"
             className={`transition-all duration-500 ${
-              expanded ? "h-[62.5vh]" : "h-1/4"
+              expanded ? "h-[80vh]" : "h-1/4"
             } `}
             style={{ width: "100%", border: "none" }}
           />

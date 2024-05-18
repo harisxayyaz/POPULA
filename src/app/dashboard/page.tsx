@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Drawer from "../components/Drawer";
-import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import WebsiteAnalysis from "../components/WebsiteAnalysis";
+import Sidebar from "../components/Sidebar";
+import DashboardComponent from "../components/DashboardComponent";
 
 const Dashboard: React.FC = () => {
-  const [reportUrl, setReportUrl] = useState<string | null>(null);
-   const [showWebsiteAnalysis, setShowWebsiteAnalysis] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,19 +19,22 @@ const Dashboard: React.FC = () => {
     }
   }, [router]);
 
-    const handleWebAnalysisClick = () => {
-      setShowWebsiteAnalysis(true);
-    };
+  const renderContent = () => {
+    switch (selectedItem) {
+      case 0:
+        return <DashboardComponent />;
+      case 8:
+        return <WebsiteAnalysis />;
+      // Add cases for other components as needed
+      default:
+        return <div>Select an option from the sidebar</div>;
+    }
+  };
 
   return (
-    <div className="flex bg-white h-screen">
-      <Drawer onWebAnalysisClick={handleWebAnalysisClick} />
-      <div className="bg w-full h-full">
-        <Navbar />
-        <div className="p-16">
-          {showWebsiteAnalysis && <WebsiteAnalysis />}
-        </div>
-      </div>
+    <div className="flex bg-[#f4f7fe] h-screen w-screen">
+      <Sidebar selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+      <div className="w-full pt-8 pb-8 pl-16 pr-16 ">{renderContent()}</div>
     </div>
   );
 };

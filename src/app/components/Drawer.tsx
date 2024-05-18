@@ -16,7 +16,7 @@ const Drawer: React.FC<DrawerProps> = ({ onWebAnalysisClick }) => {
     router.push("/login");
   };
   return (
-    <div className="w-1/5 h-[100vh] bg-custom-purple justify-between rounded-r-3xl">
+    <div className="w-1/5 h-[100vh] bg-white justify-between rounded-r-3xl">
       <div className="bg-custom-purple flex flex-col justify-between h-full pt-20 pb-10 rounded-r-3xl text-white">
         <div className="flex flex-col justify-center items-center">
           <ul className="flex flex-col gap-4 ">
