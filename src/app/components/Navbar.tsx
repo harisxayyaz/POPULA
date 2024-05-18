@@ -3,7 +3,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="flex gap-5 h-20 w-full items-center place-content-end pr-10 shadow-lg">
+    <div className="flex gap-5 h-20 items-center place-content-end pr-10 shadow-lg">
       <Image
         src="Ping.svg"
         alt="notification"

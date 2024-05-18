@@ -1,10 +1,23 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
-const Drawer = () => {
+interface DrawerProps {
+  onWebAnalysisClick: () => void;
+}
+
+const Drawer: React.FC<DrawerProps> = ({ onWebAnalysisClick }) => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    router.push("/login");
+  };
   return (
-    <div className="w-1/5 bg-custom-purple justify-between rounded-r-3xl">
-      <div className="bg-custom-purple flex flex-col justify-between h-screen pt-20 pb-10 rounded-r-3xl text-white">
+    <div className="w-1/5 h-[100vh] bg-custom-purple justify-between rounded-r-3xl">
+      <div className="bg-custom-purple flex flex-col justify-between h-full pt-20 pb-10 rounded-r-3xl text-white">
         <div className="flex flex-col justify-center items-center">
           <ul className="flex flex-col gap-4 ">
             <li className="flex gap-3 cursor-pointer">
@@ -48,6 +61,20 @@ const Drawer = () => {
               />
               Reports
             </li>
+
+            <li
+              className="flex gap-3 cursor-pointer"
+              onClick={onWebAnalysisClick}
+            >
+              <Image
+                src="./analysis.svg"
+                height={0}
+                width={0}
+                alt="Home"
+                className="h-5 w-5"
+              />
+              Website Analysis
+            </li>
           </ul>
         </div>
         <div className="flex flex-col justify-center items-center">
@@ -62,7 +89,7 @@ const Drawer = () => {
               />
               settings
             </li>
-            <li className="flex gap-3 cursor-pointer">
+            <li className="flex gap-3 cursor-pointer" onClick={handleLogout}>
               <Image
                 src="./Logout.svg"
                 height={0}

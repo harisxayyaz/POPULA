@@ -1,30 +1,79 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const signup = async () => {
+const Signup: React.FC = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setSuccess(data.message);
+        setError("");
+
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <main
-      className="flex-col h-screen relative "
+      className="flex flex-col w-screen h-screen justify-center items-center"
       style={{
         backgroundImage: "url('./background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="relative flex justify-between h-screen">
-        <div
-          style={{
-            backgroundImage: "url('./left1.png')",
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-          className=" h-[650px] w-[800px] absolute bottom-0 flex flex-col justify-center items-center "
-        >
-          <form className="mt-8 space-y-6">
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-6">
+      <div className="w-2/3 h-[70%] flex rounded-2xl bg-[#56007E] opacity-80 drop-shadow-2xl p-7">
+        <div className="flex flex-col w-[40%] h-full  justify-center items-center">
+          <div className="flex  flex-col gap-4  fixedSize">
+            <img
+              src="./logo.png"
+              alt="logo"
+              className="mx-auto w-[170px] h-[170px]"
+            />
+            <img
+              src="./title.png"
+              alt="title"
+              className=" w-[250px] h-[45px]"
+            />
+          </div>
+        </div>
+        <div className="w-[65%] flex flex-col justify-center items-center mt-8 mb-8">
+          <h1 className="text-white text-3xl font-extrabold mb-2">Signup</h1>
+          <form className=" w-[70%]" onSubmit={handleSubmit}>
+            <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-3">
               <div>
                 <label htmlFor="email" className="sr-only">
                   Email
@@ -33,16 +82,17 @@ const signup = async () => {
                 <input
                   id="email"
                   name="email"
-                  type="text"
+                  type="email"
                   autoComplete="email"
                   required
-                  className=" mt-1 mb-1 appearance-none  relative block w-full px-3 py-2 rounded border border-gray-300 placeholder-custom-purple text-gray-900  focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
+                  className=" mt-1 mb-1 appearance-none relative block w-full px-3 py-1.5 rounded border border-gray-300 placeholder-custom-purple text-gray-900 focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
                   placeholder="username@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
                 <p className="text-white">Password</p>
-
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
@@ -52,25 +102,27 @@ const signup = async () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-custom-purple text-gray-900 rounded focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full px-3 py-1.5 border border-gray-300 placeholder-custom-purple text-gray-900 rounded focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-
               <div>
                 <p className="text-white">Confirm Password</p>
-
-                <label htmlFor="password" className="sr-only">
+                <label htmlFor="confirm-password" className="sr-only">
                   Confirm Password
                 </label>
                 <input
-                  id="password"
-                  name="password"
+                  id="confirm-password"
+                  name="confirm-password"
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-custom-purple text-gray-900 rounded focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
-                  placeholder="Confrim Password"
+                  className="appearance-none relative block w-full px-3 py-1.5 border border-gray-300 placeholder-custom-purple text-gray-900 rounded focus:outline-none focus:ring-custom-purple focus:border-custom-purple focus:z-10 sm:text-sm"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -78,12 +130,15 @@ const signup = async () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-custom-purple hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#003465] hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
               >
                 Sign Up
               </button>
             </div>
-            <div className="text-sm justify-center flex flex-col items-center text-white gap-5">
+            {error && <p className="text-red-500">{error}</p>}
+
+            {success && <p className="text-green-500">{success }</p>}
+            <div className="text-sm justify-center flex flex-col items-center text-white gap-4 mt-4">
               <h3>Or continue with</h3>
 
               <div className="flex gap-4">
@@ -100,20 +155,9 @@ const signup = async () => {
             </div>
           </form>
         </div>
-        <div
-          style={{
-            backgroundImage: "url('./right1.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          className="w-1/3 h-5/6 absolute right-0 flex flex-col justify-center items-center"
-        >
-          <img src="./logo.png" alt="logo" className="w-52" />
-          <img src="./title.png" alt="title" className="mt-4 mb-16 w-52" />
-        </div>
       </div>
     </main>
   );
 };
 
-export default signup;
+export default Signup;
