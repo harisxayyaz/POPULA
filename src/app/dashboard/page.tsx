@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import WebsiteAnalysis from "../components/WebsiteAnalysis";
 import Sidebar from "../components/Sidebar";
 import DashboardComponent from "../components/DashboardComponent";
+import PostManager from "../components/PostManager";
+import AdManager from "../components/AdManager";
 
 const Dashboard: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -23,6 +25,10 @@ const Dashboard: React.FC = () => {
     switch (selectedItem) {
       case 0:
         return <DashboardComponent />;
+      case 1:
+        return <PostManager/>;
+      case 2:
+        return <AdManager/>;
       case 8:
         return <WebsiteAnalysis />;
       // Add cases for other components as needed
@@ -34,7 +40,9 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex bg-[#f4f7fe] h-screen w-screen">
       <Sidebar selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
-      <div className="w-full pt-8 pb-8 pl-16 pr-16 ">{renderContent()}</div>
+      <div className="w-full pt-8 pb-8 pl-16 pr-16 overflow-auto h-full">
+        {renderContent()}
+      </div>
     </div>
   );
 };
