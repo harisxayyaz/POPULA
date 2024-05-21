@@ -26,9 +26,9 @@ const Dashboard: React.FC = () => {
       case 0:
         return <DashboardComponent />;
       case 1:
-        return <PostManager/>;
+        return <AdManager />;
       case 2:
-        return <AdManager/>;
+        return <PostManager />;
       case 3:
         return <WebsiteAnalysis />;
       // Add cases for other components as needed
