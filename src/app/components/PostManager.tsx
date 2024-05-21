@@ -25,7 +25,6 @@ const PostManager = () => {
       };
 
       const handleSelectMedia = (media: File) => {
-        // Implement logic to handle selected media, e.g., upload to server, etc.
         console.log("Selected media:", media);
         setShowPopup(false);
       };
@@ -57,7 +56,7 @@ const PostManager = () => {
       </div>
 
       <div className="mt-6 flex justify-between">
-        <Card image="like.svg" title="Total Likes" detail="978" />
+        <Card image="Like.svg" title="Total Likes" detail="978" />
         <Card image="comment.svg" title="Total Comments" detail="1435" />
         <Card image="post.svg" title="Post Count" detail="12" />
 
