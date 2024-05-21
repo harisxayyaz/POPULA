@@ -10,12 +10,11 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedItem, setSelectedItem }) => {
     "Dashboard",
     "Post Manager",
     "Advertisement Manager",
-
+    "Website Analysis",
     "Lead Manager",
     "Profile Management",
     "Business Profile",
     "Form Generator",
-    "Website Analysis",
     "Templates",
     "Team",
     "Settings",
