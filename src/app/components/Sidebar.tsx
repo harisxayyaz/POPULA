@@ -8,8 +8,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ selectedItem, setSelectedItem }) => {
   const functions = [
     "Dashboard",
-    "Post Manager",
     "Advertisement Manager",
+    "Post Manager",
     "Website Analysis",
     "Lead Manager",
     "Profile Management",
