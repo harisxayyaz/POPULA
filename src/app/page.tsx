@@ -129,12 +129,8 @@ export default function Home() {
         </div>
 
         <div
-          className="flex flex-col justify-center items-center gap-4 mt-6 pt-[500px]"
-          style={{
-            backgroundImage: "url('./background-bottom.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="h-screen flex flex-col justify-center items-center gap-4 mt-6 border-b-2 border-black"
+
         >
           <h1 className="text-4xl font-bold text text-[#270139]">
             Pricing Plans
