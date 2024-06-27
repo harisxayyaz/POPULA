@@ -31,9 +31,9 @@ const Dashboard: React.FC = () => {
         return <PostManager />;
       case 3:
         return <WebsiteAnalysis />;
-      // Add cases for other components as needed
+      
       default:
-        return <div>Select an option from the sidebar</div>;
+        return <div>Not developed Yet!</div>;
     }
   };
 
