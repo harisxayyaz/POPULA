@@ -13,13 +13,13 @@ const Dashboard: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState(0);
   const router = useRouter();
 
-  useEffect(() => {
-    const token = Cookies.get("token");
+  // useEffect(() => {
+  //   const token = Cookies.get("token");
 
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
+  //   if (!token) {
+  //     router.push("/login");
+  //   }
+  // }, [router]);
 
   const renderContent = () => {
     switch (selectedItem) {
@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
         return <PostManager />;
       case 3:
         return <WebsiteAnalysis />;
-      
+
       default:
         return <div>Not developed Yet!</div>;
     }
