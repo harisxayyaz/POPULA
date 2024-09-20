@@ -1,7 +1,7 @@
 // components/HorizontalScrollImages.tsx
 import React, { useRef, useEffect } from "react";
 
-const HorizontalScrollPosts: React.FC = () => {
+const HorizontalScrollImages: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,37 +30,37 @@ const HorizontalScrollPosts: React.FC = () => {
     <div ref={scrollRef} className="overflow-hidden whitespace-nowrap w-full">
       <div className="flex scroll-animation gap-6 p-10">
         <img
-          src="adv1.svg"
+          src="/adcard1.svg"
           alt="Ad 1"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adv2.svg"
+          src="/adcard2.svg"
           alt="Ad 2"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adv3.svg"
+          src="/adcard3.svg"
           alt="Ad 3"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adv4.svg"
+          src="/adcard4.svg"
           alt="Ad 4"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adv5.svg"
+          src="/adcard5.svg"
           alt="Ad 5"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adv6.svg"
+          src="/adcard6.svg"
           alt="Ad 6"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
         <img
-          src="adcard1.svg"
+          src="/adcard1.svg"
           alt="Ad 1"
           className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
         />
@@ -70,4 +70,4 @@ const HorizontalScrollPosts: React.FC = () => {
   );
 };
 
-export default HorizontalScrollPosts;
+export default HorizontalScrollImages;

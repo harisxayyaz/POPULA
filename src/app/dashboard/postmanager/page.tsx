@@ -1,24 +1,41 @@
+"use client"
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Cookies from "js-cookie";
-import Card from "./Card";
-import HorizontalScrollImages from "./HorizontalScrollImages";
-import AdCard from "./AdCard";
+import Card from "@/components/Card";
+import MediaPopup from "@/components/MediaPopup";
+import PostCard from "@/components/PostCard";
+import HorizontalScrollPosts from "@/components/HorizontalScrollPosts";
 
-const AdManager = () => {
+const PostManager = () => {
   const router = useRouter();
   const handleLogout = () => {
     Cookies.remove("token");
     router.push("/login");
+  };  
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handlePostCardClick = () => {
+    setShowPopup(true);
   };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleSelectMedia = (media: File) => {
+    console.log("Selected media:", media);
+    setShowPopup(false);
+  };
+
   return (
-    <div className=" h-full">
+    <div className=" max-h-screen w-full overflow-y-scroll  p-4">
       <div className="flex justify-between ">
         <div>
           <h1 className=" text-sm text-[#707EAE]">Pages / Social Sphere</h1>
-          <h1 className="text-3xl font-bold text-[#2B3674]">
-            Advertisement Manager
-          </h1>
+          <h1 className="text-3xl font-bold text-[#2B3674]">Post Manager</h1>
         </div>
         <div className="flex bg-white p-2 rounded-full h-13 gap-3 items-center">
           <input
@@ -26,11 +43,11 @@ const AdManager = () => {
             placeholder="search"
             className="rounded-full bg-[#f4f7fe] p-2 pl-6 4 placeholder-[#8F9BBA]"
           />
-          <img src="notifications.svg" alt="" className=" w-5 h-5" />
-          <img src="moon.svg" alt="" className=" w-4 h-4" />
-          <img src="info.svg" alt="" className=" w-5 h-5" />
+          <img src="/notifications.svg" alt="" className=" w-5 h-5" />
+          <img src="/moon.svg" alt="" className=" w-4 h-4" />
+          <img src="/info.svg" alt="" className=" w-5 h-5" />
           <img
-            src="Profile.svg"
+            src="/Profile.svg"
             alt=""
             className=" w-8 h-8 cursor-pointer"
             onClick={handleLogout}
@@ -39,25 +56,25 @@ const AdManager = () => {
       </div>
 
       <div className="mt-6 flex justify-between">
-        <Card image="leadcard.svg" title="Total Views" detail="978" />
-        <Card image="ad1.svg" title="Total Clicks" detail="1435" />
-        <Card image="newassignmentscard.svg" title="Running Ads" detail="12" />
+        <Card image="/Like.svg" title="Total Likes" detail="978" />
+        <Card image="/comment.svg" title="Total Comments" detail="1435" />
+        <Card image="/post.svg" title="Post Count" detail="12" />
 
-        <Card image="usa.svg" title="Current Balance" detail="$804" />
+        <Card image="/usa.svg" title="Current Balance" detail="$804" />
       </div>
 
       <div className="h-[50%] flex items-center ">
-        <HorizontalScrollImages />
+        <HorizontalScrollPosts />
       </div>
 
       <div className=" h-[350px] flex justify-between">
         <div className=" h-[95%] pl-4 flex flex-col bg-white w-[74%] rounded-xl drop-shadow-md hover:drop-shadow-lg hover:translate-y-[-4px] transition-transform cursor-pointer ">
           <div className="flex justify-between p-4">
             <h1 className="font-bold text-2xl text-[#2B3674]">
-              Running Advertisments
+              Sponsored Posts
             </h1>
             <img
-              src="totalleadscard.svg"
+              src="/totalleadscard.svg"
               alt=""
               className="w-[40px] h-[40px]"
             />
@@ -77,7 +94,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-5">11 Apr 2024</h1>
               <h1>18 Apr 2024</h1>
-              <img src="adprogress1.svg" alt="" />
+              <img src="/adprogress1.svg" alt="" />
             </div>
             <div className="flex justify-between">
               <h1 className=" font-bold text-[#2B3674] w-[20%]">
@@ -85,7 +102,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-4">09 Jul 2024</h1>
               <h1>16 Jul 2024 </h1>
-              <img src="adprogress2.svg" alt="" />
+              <img src="/adprogress2.svg" alt="" />
             </div>
             <div className="flex justify-between">
               <h1 className=" font-bold text-[#2B3674] w-[20%]">
@@ -93,7 +110,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-5">13 Feb 2024</h1>
               <h1>20 Feb 2024</h1>
-              <img src="adprogress3.svg" alt="" />
+              <img src="/adprogress3.svg" alt="" />
             </div>
             <div className="flex justify-between">
               <h1 className=" font-bold text-[#2B3674] w-[20%]">
@@ -101,7 +118,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-4">03 Jan 2024</h1>
               <h1>10 Jan 2024</h1>
-              <img src="adprogress4.svg" alt="" />
+              <img src="/adprogress4.svg" alt="" />
             </div>
 
             <div className="flex justify-between">
@@ -110,7 +127,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-4">03 Jan 2024</h1>
               <h1>10 Jan 2024</h1>
-              <img src="adprogress3.svg" alt="" />
+              <img src="/adprogress3.svg" alt="" />
             </div>
 
             <div className="flex justify-between">
@@ -119,19 +136,36 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-4">03 Jan 2024</h1>
               <h1>10 Jan 2024</h1>
-              <img src="adprogress4.svg" alt="" />
+              <img src="/adprogress4.svg" alt="" />
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-4 font-bold">
-          <AdCard image="plusicon.svg" title="Create New Advertisement" />
-          <AdCard image="plus.svg" title="View All Advertisments" />
-          <AdCard image="viewinactive.svg" title="View Inactive Advertisements" />
+          <PostCard
+            image="/plusicon.svg"
+            title="Create Post"
+            onClick={handlePostCardClick}
+          />
+          <PostCard
+            image="/plus.svg"
+            title="View All Posts"
+            onClick={handlePostCardClick}
+          />
+          <PostCard
+            image="/viewinactive.svg"
+            title="Archived Posts"
+            onClick={handlePostCardClick}
+          />
+          {showPopup && (
+            <MediaPopup
+              onClose={handleClosePopup}
+            />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default AdManager;
+export default PostManager;

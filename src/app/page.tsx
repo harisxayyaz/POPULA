@@ -1,7 +1,7 @@
 "use client";
 
-import LandingButton from "./components/LandingButton";
-import LandingCard from "./components/LandingCard";
+import LandingButton from "../components/LandingButton";
+import LandingCard from "../components/LandingCard";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -128,10 +128,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div
-          className="h-screen flex flex-col justify-center items-center gap-4 mt-6 border-b-2 border-black"
-
-        >
+        <div className="h-screen flex flex-col justify-center items-center gap-4 mt-6 border-b-2 border-black">
           <h1 className="text-4xl font-bold text text-[#270139]">
             Pricing Plans
           </h1>
@@ -159,7 +156,6 @@ export default function Home() {
             />
           </div>
         </div>
-
       </div>
     </main>
   );
