@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 
 const Form: React.FC = () => {
@@ -16,7 +16,7 @@ const Form: React.FC = () => {
     return phoneRegex.test(phone);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { email?: string; phone?: string } = {};
 
@@ -31,10 +31,35 @@ const Form: React.FC = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      // Clear errors and redirect to YouTube
+      // Clear errors
       setErrors({});
-      window.location.href =
-        "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV"; // Redirects to YouTube
+
+      // Create the data object
+      const data = { email, phoneNumber: phone };
+
+      try {
+        // Post data to the backend
+        const response = await fetch(
+          "https://popula-backend.onrender.com/api/leads",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+
+        if (response.ok) {
+          // Redirect to YouTube after successful submission
+          window.location.href =
+            "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
+        } else {
+          console.error("Failed to submit form data", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error occurred while posting data", error);
+      }
     }
   };
 
