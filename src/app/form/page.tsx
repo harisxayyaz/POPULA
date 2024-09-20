@@ -33,7 +33,8 @@ const Form: React.FC = () => {
     } else {
       // Clear errors and redirect to YouTube
       setErrors({});
-      window.location.href = "https://www.youtube.com"; // Redirects to YouTube
+      window.location.href =
+        "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV"; // Redirects to YouTube
     }
   };
 
