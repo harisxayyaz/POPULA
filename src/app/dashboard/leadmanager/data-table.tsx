@@ -134,15 +134,6 @@ export function DataTable<TData, TValue>({
                     cell.column.columnDef.cell,
                     cell.getContext()
                   )}
-                  {/* Edit and Delete Icons */}
-                  <span className="flex space-x-2">
-                    <button className="text-blue-500">
-                      <p>edi</p> {/* Edit Icon */}
-                    </button>
-                    <button className="text-red-500">
-                      <i className="fas fa-trash"></i> {/* Delete Icon */}
-                    </button>
-                  </span>
                 </TableCell>
               ))}
             </TableRow>
