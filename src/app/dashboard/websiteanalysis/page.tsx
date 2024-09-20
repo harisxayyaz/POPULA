@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import WebsiteAnalysis from "@/components/WebsiteAnalysis";
 
 const Websiteanalysis = () => {
   const router = useRouter();
@@ -10,7 +11,8 @@ const Websiteanalysis = () => {
     router.push("/login");
   };
   return (
-   <Websiteanalysis/>
+  //  <WebsiteAnalysis/>
+  <div>web analysis</div>
   );
 };
 
