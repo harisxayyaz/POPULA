@@ -160,7 +160,7 @@ const PostManager = () => {
           {showPopup && (
             <MediaPopup
               onClose={handleClosePopup}
-              onSelectMedia={handleSelectMedia}
+              // onSelectMedia={handleSelectMedia}
             />
           )}
         </div>
