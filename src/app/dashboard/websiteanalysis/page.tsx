@@ -10,7 +10,7 @@ const Websiteanalysis = () => {
     Cookies.remove("token");
     router.push("/login");
   };
-  return (
+  return (  
   //  <WebsiteAnalysis/>
   <div>web analysis</div>
   );

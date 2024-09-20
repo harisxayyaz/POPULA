@@ -31,14 +31,10 @@ const Form: React.FC = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      // Clear errors
       setErrors({});
-
-      // Create the data object
       const data = { email, phoneNumber: phone };
 
       try {
-        // Post data to the backend
         const response = await fetch(
           "https://popula-backend.onrender.com/api/leads",
           {
@@ -51,7 +47,6 @@ const Form: React.FC = () => {
         );
 
         if (response.ok) {
-          // Redirect to YouTube after successful submission
           window.location.href =
             "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         } else {
@@ -64,7 +59,7 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-500">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 to-yellow-300">
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Get in Touch
@@ -86,7 +81,7 @@ const Form: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className={`block w-full px-4 py-2 border ${
                   errors.email ? "border-red-500" : "border-gray-300"
-                } rounded-md focus:ring-indigo-500 focus:border-indigo-500`}
+                } rounded-md focus:ring-pink-500 focus:border-pink-500`}
                 placeholder="you@example.com"
               />
               {errors.email && (
@@ -110,7 +105,7 @@ const Form: React.FC = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 className={`block w-full px-4 py-2 border ${
                   errors.phone ? "border-red-500" : "border-gray-300"
-                } rounded-md focus:ring-indigo-500 focus:border-indigo-500`}
+                } rounded-md focus:ring-pink-500 focus:border-pink-500`}
                 placeholder="1234567890"
               />
               {errors.phone && (
@@ -121,7 +116,7 @@ const Form: React.FC = () => {
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-200"
+            className="w-full py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition duration-200"
           >
             Submit
           </button>

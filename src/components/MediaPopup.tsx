@@ -68,7 +68,7 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
     const params = new URLSearchParams({
       url: imageUrl!,
       access_token: pageAccessToken,
-      message: caption,
+      message: caption + "\nView Business Website: https://bit.ly/business_shop",
       published: "true",
     });
 
@@ -98,7 +98,8 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
           `https://graph.facebook.com/v20.0/${instagramUserId}/media`,
           {
             image_url: imageUrl!,
-            caption: caption,
+            caption:
+              caption + "View Business Website: https://bit.ly/business_shop",
             access_token: accessToken,
           }
         );
