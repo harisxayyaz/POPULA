@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { Barchart } from "@/components/Barchart";
 import { Areachart } from "@/components/Areachart";
 import { Piechart } from "@/components/Piechart";
+import { useAppSelector } from "@/redux/store/hooks";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -13,11 +14,12 @@ const Dashboard = () => {
     Cookies.remove("token");
     router.push("/login");
   };
+   const { token } = useAppSelector((state) => state.business);
 
   return (
     <div className="p-6 max-h-screen w-full overflow-y-scroll">
-      <div className=" h-10 items-center flex flex-col justify-center bg-red-300 opacity-50 border-red-600 border-2 mb-4 rounded-md">
-        <h1>Please Configure your business to avail all options</h1>
+      <div className="px-20 h-10 items-center flex flex-col justify-center bg-red-300 opacity-50 border-red-600 border-2 mb-4 rounded-md">
+        <h1>{token}</h1>
       </div>
       <div className="flex justify-between ">
         <div>

@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Unna } from "next/font/google";
-import Cookies from "js-cookie";
+import { useAppSelector } from "@/redux/store/hooks";
+import { useAppDispatch } from "@/redux/store/hooks";
+import {
+  setToken
+} from "@/redux/features/business/businessSlice";
 
 const unna = Unna({
   subsets: ["latin"],
@@ -13,6 +17,7 @@ const unna = Unna({
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -21,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3002/api/login", {
+      const response = await fetch("http://localhost:5000/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,8 +36,9 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
+        dispatch(setToken(data.token));
         // Set the token in cookies (assuming response contains a token)
-        Cookies.set("token", data.token, { expires: 7 }); // Store the token for 7 days
+        // Cookies.set("token", data.token, { expires: 7 }); // Store the token for 7 days
 
         setError("");
         setTimeout(() => {

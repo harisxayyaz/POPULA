@@ -61,7 +61,7 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
   async function postPhotoToFacebook(): Promise<void> {
     const facebookPageId = "370027042861373"; // Replace with your Page ID
     const pageAccessToken =
-      "EAB1XqldtBCQBO7VQSxCCROElLORKMBZBSnKiUPcl2XC1kQdCQZCMfkpwZBf5oD0kyVqMwNLZA84Ll74bwBvKwh3glTRtIP6iI31Dw4Kf9WYZCHHiZB0KbG4GjxE39gzGyPNO1OxCtc0sCggAx5HLN6Yh0s49psPTvpDm4aSBr4YKuvSZCQB0Tuw5zznPXd77gA1"; // Replace with your Page access token
+      "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe"; // Replace with your Page access token
 
     const facebookUrl = `https://graph.facebook.com/v20.0/${facebookPageId}/photos`;
 
@@ -88,7 +88,7 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
   // Function to post photo to Instagram
   async function postPhotoToInstagram(): Promise<void> {
     const accessToken =
-      "EAB1XqldtBCQBO7VQSxCCROElLORKMBZBSnKiUPcl2XC1kQdCQZCMfkpwZBf5oD0kyVqMwNLZA84Ll74bwBvKwh3glTRtIP6iI31Dw4Kf9WYZCHHiZB0KbG4GjxE39gzGyPNO1OxCtc0sCggAx5HLN6Yh0s49psPTvpDm4aSBr4YKuvSZCQB0Tuw5zznPXd77gA1";
+      "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe";
     const instagramUserId = "17841466634260746"; // Replace with your Instagram user ID
 
     try {
@@ -151,6 +151,7 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
 
     setPosting(false); // Stop the loader
     setSuccessMessage("Post published successfully!"); // Show success message
+    
     setTimeout(() => {
       setSuccessMessage(null); // Clear the success message after 3 seconds
       onClose(); // Close the popup after publishing

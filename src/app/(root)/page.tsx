@@ -1,7 +1,7 @@
 "use client";
 
-import LandingButton from "../components/LandingButton";
-import LandingCard from "../components/LandingCard";
+import LandingButton from "../../components/LandingButton";
+import LandingCard from "../../components/LandingCard";
 import { useRouter } from "next/navigation";
 
 export default function Home() {

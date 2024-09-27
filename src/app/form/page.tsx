@@ -35,6 +35,8 @@ const Form: React.FC = () => {
       const data = { email, phoneNumber: phone };
 
       try {
+                  window.location.href =
+                    "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         const response = await fetch(
           "https://popula-backend.onrender.com/api/leads",
           {
@@ -45,10 +47,8 @@ const Form: React.FC = () => {
             body: JSON.stringify(data),
           }
         );
-
         if (response.ok) {
-          window.location.href =
-            "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
+
         } else {
           console.error("Failed to submit form data", response.statusText);
         }

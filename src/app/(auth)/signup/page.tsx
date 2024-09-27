@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,9 +12,10 @@ const unna = Unna({
 const Signup = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [acceptMarketing, setAcceptMarketing] = useState<boolean>(false);
+  const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
 
@@ -25,20 +26,25 @@ const Signup = () => {
       return;
     }
 
+
+    if (!agreeToTerms) {
+      setError("You must agree to the terms and conditions.");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:3002/api/signup", {
+      const response = await fetch("http://localhost:5000/api/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, username }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
       if (response.ok) {
         setSuccess(data.message);
         setError("");
-
         setTimeout(() => {
           router.push("/login");
         }, 1000);
@@ -61,24 +67,15 @@ const Signup = () => {
         <div className="flex flex-col justify-center md:h-full h-[80vh] ">
           <div className="flex justify-center mb-6">
             <form className="space-y-6 w-full max-w-md" onSubmit={handleSubmit}>
-              <img src="/logo.svg" alt="logo" className="h-12 block md:hidden" />
+              <img
+                src="/logo.svg"
+                alt="logo"
+                className="h-12 block md:hidden"
+              />
               <div className={`${unna.className} `}>
                 <h1 className=" text-4xl font-bold">
                   Create Your Free Account And Get Started!
                 </h1>
-              </div>
-              {/* Username input */}
-              <div className="relative">
-                <input
-                  type="text"
-                  required
-                  className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <label className="absolute top-1/2 left-1 text-sm text-black px-2 pointer-events-none transform -translate-y-1/2 transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:bg-white peer-valid:top-0 peer-valid:text-sm peer-valid:bg-white">
-                  Username
-                </label>
               </div>
               {/* Email input */}
               <div className="relative">
@@ -117,6 +114,31 @@ const Signup = () => {
                 />
                 <label className="absolute top-1/2 left-1 text-sm text-black px-2 pointer-events-none transform -translate-y-1/2 transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:bg-white peer-valid:top-0 peer-valid:text-sm peer-valid:bg-white">
                   Confirm Password
+                </label>
+              </div>
+              {/* Checkboxes for marketing emails and terms */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="acceptMarketing"
+                  checked={acceptMarketing}
+                  onChange={() => setAcceptMarketing(!acceptMarketing)}
+                  className="mr-2"
+                />
+                <label htmlFor="acceptMarketing" className="text-sm text-black">
+                  Accept Marketing Emails
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="agreeToTerms"
+                  checked={agreeToTerms}
+                  onChange={() => setAgreeToTerms(!agreeToTerms)}
+                  className="mr-2"
+                />
+                <label htmlFor="agreeToTerms" className="text-sm text-black">
+                  Agree to Terms and Conditions
                 </label>
               </div>
               {/* Submit button */}
