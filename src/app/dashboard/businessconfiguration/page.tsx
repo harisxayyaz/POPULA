@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import Navbar from "@/components/Navbar";
 
 const steps = [
   { label: "Basic Information", id: "basic-info" },
-  { label: "Bank Info", id: "bank-info" },
   { label: "Social Media Configuration", id: "social-media" },
 ];
 
@@ -28,38 +28,9 @@ const BusinessConfiguration = () => {
 
   return (
     <div className="bg-[#f4f7fe] min-h-screen overflow-y-scroll p-6 w-full">
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6 flex justify-between items-center">
-        <div>
-          <h1 className="text-sm text-gray-500">
-            Pages / Business Configuration
-          </h1>
-          <h1 className="text-2xl font-semibold text-gray-800 mt-1">
-            Business Configuration
-          </h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <input
-            type="search"
-            placeholder="Search"
-            className="border rounded-full px-4 py-2 placeholder-gray-400 w-64"
-          />
-          <img
-            src="/notifications.svg"
-            alt="Notifications"
-            className="w-6 h-6"
-          />
-          <img src="/moon.svg" alt="Theme" className="w-6 h-6" />
-          <img src="/info.svg" alt="Info" className="w-6 h-6" />
-          <img
-            src="/Profile.svg"
-            alt="Profile"
-            className="w-8 h-8 cursor-pointer"
-            onClick={handleLogout}
-          />
-        </div>
-      </div>
+      <Navbar title="Business Configuration" description="Business Configuration"/>
 
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="bg-white shadow-md rounded-lg p-6 mt-6">
         <ul className="flex justify-around border-b border-gray-200 pb-2 mb-4">
           {steps.map((step, index) => (
             <li
@@ -93,6 +64,7 @@ const BusinessConfiguration = () => {
                       id="business-name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                       placeholder="Enter your business name"
+                      required
                     />
                   </div>
                   <div>
@@ -107,6 +79,7 @@ const BusinessConfiguration = () => {
                       id="license-number"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                       placeholder="Enter your license number"
+                      required
                     />
                   </div>
                 </div>
@@ -124,6 +97,7 @@ const BusinessConfiguration = () => {
                       id="business-domain"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                       placeholder="Enter your business domain"
+                      required
                     />
                   </div>
                   <div>
@@ -138,6 +112,7 @@ const BusinessConfiguration = () => {
                       id="business-email"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                       placeholder="Enter your business email"
+                      required
                     />
                   </div>
                 </div>
@@ -195,118 +170,67 @@ const BusinessConfiguration = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
-                      htmlFor="bank-name"
+                      htmlFor="facebook-page-id"
                       className="block text-gray-700 font-medium mb-2"
                     >
-                      Bank Name
+                      Facebook Page ID
                     </label>
                     <input
                       type="text"
-                      id="bank-name"
+                      id="facebook-page-id"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter your bank name"
+                      placeholder="Enter your Facebook Page ID"
                     />
                   </div>
                   <div>
                     <label
-                      htmlFor="account-number"
+                      htmlFor="instagram-page-id"
                       className="block text-gray-700 font-medium mb-2"
                     >
-                      Account Number
+                      Instagram Page ID
                     </label>
                     <input
                       type="text"
-                      id="account-number"
+                      id="instagram-page-id"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter your account number"
+                      placeholder="Enter your Instagram Page ID"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="account-holder"
-                      className="block text-gray-700 font-medium mb-2"
-                    >
-                      Account Holder Name
-                    </label>
-                    <input
-                      type="text"
-                      id="account-holder"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter the account holder's name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="bank-address"
-                      className="block text-gray-700 font-medium mb-2"
-                    >
-                      Bank Address
-                    </label>
-                    <input
-                      type="text"
-                      id="bank-address"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter your bank's address"
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-            {currentStep === 2 && (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="facebook-api-key"
-                      className="block text-gray-700 font-medium mb-2"
-                    >
-                      Facebook API Key
-                    </label>
-                    <input
-                      type="text"
-                      id="facebook-api-key"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter your Facebook API key"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="instagram-api-key"
-                      className="block text-gray-700 font-medium mb-2"
-                    >
-                      Instagram API Key
-                    </label>
-                    <input
-                      type="text"
-                      id="instagram-api-key"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      placeholder="Enter your Instagram API key"
-                    />
-                  </div>
+                <div>
+                  <label
+                    htmlFor="access-token"
+                    className="block text-gray-700 font-medium mb-2"
+                  >
+                    Access Token
+                  </label>
+                  <input
+                    type="text"
+                    id="access-token"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    placeholder="Enter your access token"
+                  />
                 </div>
               </>
             )}
 
             <div className="flex justify-between mt-6">
-              {currentStep > 0 && (
-                <button
-                  type="button"
-                  onClick={handlePrevious}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
-                >
-                  Previous Step
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handlePrevious}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+                disabled={currentStep === 0}
+              >
+                Previous
+              </button>
               <button
                 type="button"
                 onClick={handleNext}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                disabled={currentStep === steps.length - 1}
               >
-                {currentStep === steps.length - 1 ? "Submit" : "Next Step"}
+                Next
               </button>
             </div>
           </form>

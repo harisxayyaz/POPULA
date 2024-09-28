@@ -37,9 +37,7 @@ const Login = () => {
       const data = await response.json();
       if (response.ok) {
         dispatch(setToken(data.token));
-        // Set the token in cookies (assuming response contains a token)
-        // Cookies.set("token", data.token, { expires: 7 }); // Store the token for 7 days
-
+        localStorage.setItem("token", data.token);
         setError("");
         setTimeout(() => {
           router.push("/dashboard"); // Redirect to the dashboard or desired page
