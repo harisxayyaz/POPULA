@@ -1,7 +1,16 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "nextjs-toploader/app";
+import { Unna } from "next/font/google";
+
+const unna = Unna({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const ForgotPassword: React.FC = () => {
+  const router = useRouter(); // Use router for navigation
   const [email, setEmail] = useState<string>(""); // State to capture email input
   const [message, setMessage] = useState<string>(""); // State to display success message
   const [error, setError] = useState<string | null>(null); // State to display errors
@@ -26,9 +35,10 @@ const ForgotPassword: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("Check your email for the password reset link."); // Success message
+        setMessage("A password reset link has been sent to your email! Check your inbox"); // Success message
         setError(null); // Clear any previous errors
         setFormSubmitted(true); // Mark the form as submitted to hide it
+        setEmail(""); // Clear the email input field
       } else {
         setError(data.message); // Show error message from server
         setMessage(""); // Clear success message
@@ -42,55 +52,66 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <main
-      className="flex flex-col w-screen h-screen justify-center items-center"
-      style={{
-        backgroundImage: "url('./background.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="w-1/3 h-[30%] flex flex-col rounded-2xl bg-[#56007E] opacity-80 drop-shadow-2xl p-7 items-center justify-center">
-        <h1 className="text-white text-2xl font-extrabold">Forgot Password</h1>
-
-        {/* Conditionally render the form or the success message */}
-        {!formSubmitted ? (
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col space-y-4 mt-4 items-center"
-          >
-            <label htmlFor="email">
-              <input
-                type="email"
-                placeholder="Enter your email: "
-                className="h-[35px] pl-4 rounded"
-                value={email} // Bind the input value to state
-                onChange={(e) => setEmail(e.target.value)} // Update the state when input changes
-                required // Ensure email is required
-              />
-            </label>
-
-            <button
-              type="submit"
-              className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#003465] hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
-              disabled={isLoading} // Disable button when loading
-            >
-              {isLoading ? (
-                <div className="loader border-t-4 border-white rounded-full w-5 h-5 animate-spin"></div> // Loader (spinner)
-              ) : (
-                "Enter"
-              )}
-            </button>
-          </form>
-        ) : (
-          <div className="text-white text-lg mt-4">
-            {message && <p>{message}</p>}
+    <main className="flex flex-col md:flex-row w-screen h-screen">
+      <section className="w-full md:h-full p-6 flex flex-col order-1 md:order-2">
+        <div className="flex flex-col justify-center md:h-full h-[80vh]">
+          <div className="flex justify-center mb-6">
+            {!formSubmitted ? (
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6 w-full max-w-md"
+              >
+                <img
+                  src="/logo.svg"
+                  alt="logo"
+                  className="h-12 block md:hidden"
+                />
+                <div className={`${unna.className}`}>
+                  <h1 className="text-4xl font-bold">Reset Your Password</h1>
+                </div>
+                {/* Email input */}
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                    value={email} // Bind the input value to state
+                    onChange={(e) => setEmail(e.target.value)} // Update the state when input changes
+                    required // Ensure email is required
+                  />
+                </div>
+                {/* Submit button */}
+                <div className="relative">
+                  <button
+                    type="submit"
+                    className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700"
+                    disabled={isLoading} // Disable button when loading
+                  >
+                    {isLoading ? (
+                      <div className="loader border-t-4 border-white rounded-full w-5 h-5 animate-spin"></div> // Loader (spinner)
+                    ) : (
+                      "Send Reset Link"
+                    )}
+                  </button>
+                </div>
+                {/* Display error/success messages */}
+                {error && <p className="text-red-500">{error}</p>}
+                {message && <p className="text-green-500">{message}</p>}
+              </form>
+            ) : (
+              <div className="text-black text-lg mt-4">
+                <p>{message}</p>{" "}
+                {/* Display success message after submission */}
+              </div>
+            )}
           </div>
-        )}
-
-        {/* Display error message */}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
-      </div>
+          <div className="flex justify-center">
+            <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800">
+              <Link href="/login">Password yaad aa gaya? Sign in!</Link>
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };

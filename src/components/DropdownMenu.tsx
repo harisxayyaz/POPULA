@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
+
 
 const DropdownMenuComponent = () => {
   const [imageUrl, setImageUrl] = useState<string>(""); // State to hold the image URL
@@ -69,11 +70,24 @@ const DropdownMenuComponent = () => {
         >
           Profile
         </DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/dashboard/businessconfiguration");
+          }}
+        >
+          Business Profile
+        </DropdownMenuItem>
         <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem onClick={()=>{{router.push("/login");
-          localStorage.removeItem("token");
-        }}}>Logout</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            {
+              router.push("/login");
+              localStorage.removeItem("token");
+            }
+          }}
+        >
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

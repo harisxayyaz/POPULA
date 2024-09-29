@@ -1,4 +1,5 @@
 import Sidebar from "../../components/Sidebar";
+import NextTopLoader from "nextjs-toploader";
 
 export default function DashboardLayout({
   children,
@@ -8,7 +9,8 @@ export default function DashboardLayout({
   return (
     <html lang="en">
       <body>
-        <main className="flex h-screen bg-[#f4f7fe]">
+        <main className="flex w-screen h-screen bg-[#f4f7fe]">
+          <NextTopLoader />
           <Sidebar />
           {children}
         </main>

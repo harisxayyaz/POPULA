@@ -2,13 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { Unna } from "next/font/google";
 import { useAppSelector } from "@/redux/store/hooks";
 import { useAppDispatch } from "@/redux/store/hooks";
 import {
   setToken
 } from "@/redux/features/business/businessSlice";
+import Sidebar from "../_components/Sidebar";
 
 const unna = Unna({
   subsets: ["latin"],
@@ -52,12 +53,8 @@ const Login = () => {
 
   return (
     <main className="flex flex-col md:flex-row w-screen h-screen">
-      <section className="md:w-[60%] md:h-full p-6 flex flex-col order-1 md:order-2">
-        <div className="flex justify-end mb-6 pr-6">
-          <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
-            <Link href="/signup">Don't have an account? Sign up</Link>
-          </p>
-        </div>
+      
+      <section className="md:w-full md:h-full p-6 flex flex-col">
         <div className="flex flex-col justify-center md:h-full h-[80vh]">
           <div className="flex justify-center mb-6">
             <form className="space-y-6 w-full max-w-md" onSubmit={handleSubmit}>
@@ -101,6 +98,15 @@ const Login = () => {
                   Sign in
                 </button>
               </div>
+              <div className="flex justify-between">
+                <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
+                  <Link href="/signup">Don't have an account? Sign up</Link>
+                </p>
+
+                <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
+                  <Link href="/forgotpassword">Forgot Password?</Link>
+                </p>
+              </div>
             </form>
           </div>
           <div className="flex items-center justify-center cursor-pointer">
@@ -108,25 +114,6 @@ const Login = () => {
             <img src="google.svg" alt="google" className="h-5 w-5" />
           </div>
         </div>
-      </section>
-      <section
-        className="flex flex-col gap-3 justify-center items-center md:h-full md:w-[40%] bg-[#270139] text-center md:text-left py-8 px-24 bg-cover bg-center order-2 md:order-1"
-        style={{ backgroundImage: "url('/design.svg')" }}
-      >
-        <img
-          src="whiteLogo.svg"
-          alt="white logo"
-          className="h-12 md:block hidden"
-        />
-
-        <img src="user.png" alt="user photo" className="h-24 w-24" />
-        <p className="text-white text-center">
-          “POPULA provided exceptional service, exceeding my expectations and
-          leaving me extremely satisfied.”
-        </p>
-        <p className="text-[#31A1A1] text-center tracking-widest">
-          ANTON VILLE | CEO, ADC PHARM.
-        </p>
       </section>
     </main>
   );

@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import Card from "@/components/Card";
@@ -10,11 +9,6 @@ import HorizontalScrollPosts from "@/components/HorizontalScrollPosts";
 import Navbar from "@/components/Navbar";
 
 const PostManager = () => {
-  const router = useRouter();
-  const handleLogout = () => {
-    Cookies.remove("token");
-    router.push("/login");
-  };  
 
   const [showPopup, setShowPopup] = useState(false);
 

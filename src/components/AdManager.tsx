@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader";
 import Cookies from "js-cookie";
 import Card from "./Card";
 import HorizontalScrollImages from "./HorizontalScrollImages";

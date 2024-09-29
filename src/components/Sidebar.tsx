@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -9,15 +9,15 @@ const Sidebar: React.FC = () => {
   const functions = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Post Manager", path: "/dashboard/postmanager" },
-    { name: "Website Analysis", path: "/dashboard/websiteanalysis" },
     { name: "Lead Manager", path: "/dashboard/leadmanager" },
     { name: "Profile Management", path: "/dashboard/profilemanagement" },
     {
-      name: "Business Configuration",
-      path: "/dashboard/businessconfiguration",
+      name: "Business Profile",
+      path: "/dashboard/businessprofile",
     },
+    { name: "Website Analysis", path: "/dashboard/websiteanalysis" },
     { name: "Form Generator", path: "/dashboard/formgenerator" },
-    { name: "Templates", path: "/dashboard/templates" },
+    { name: "Templates", path: "/dashboard/template" },
     { name: "Team", path: "/dashboard/team" },
     { name: "Settings", path: "/dashboard/settings" },
   ];
@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="w-[ ] h-screen bg-white">
+    <div className="w-[370px] h-screen bg-white">
       <div className="flex justify-center p-8">
         <img src="/sidebarLogo.svg" alt="POPULA" />
       </div>

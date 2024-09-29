@@ -1,9 +1,6 @@
-
-
-
 import React from "react";
 import Card from "./Card";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader";
 import Cookies from "js-cookie";
 
 const Dashboard = () => {
@@ -119,9 +116,7 @@ const Dashboard = () => {
               <img src="Progress1.svg" alt="" />
             </div>
             <div className="flex justify-between">
-              <h1 className=" font-bold text-[#2B3674] w-[20%]">
-                L07-Fatima 
-              </h1>
+              <h1 className=" font-bold text-[#2B3674] w-[20%]">L07-Fatima</h1>
               <h1>Approached</h1>
               <h1>16 Jul 2024 </h1>
               <img src="Progress1.svg" alt="" />

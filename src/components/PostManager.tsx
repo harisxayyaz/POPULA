@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import Card from "./Card";
@@ -14,21 +14,20 @@ const PostManager = () => {
     router.push("/login");
   };
 
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
-    const handlePostCardClick = () => {
-      setShowPopup(true);
-    };
+  const handlePostCardClick = () => {
+    setShowPopup(true);
+  };
 
-      const handleClosePopup = () => {
-        setShowPopup(false);
-      };
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
-      const handleSelectMedia = (media: File) => {
-        console.log("Selected media:", media);
-        setShowPopup(false);
-      };
-
+  const handleSelectMedia = (media: File) => {
+    console.log("Selected media:", media);
+    setShowPopup(false);
+  };
 
   return (
     <div className=" h-full">

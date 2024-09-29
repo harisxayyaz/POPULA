@@ -1,32 +1,80 @@
 "use client";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Card from "@/components/Card";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import Cookies from "js-cookie";
 import { Barchart } from "@/components/Barchart";
 import { Areachart } from "@/components/Areachart";
 import { Piechart } from "@/components/Piechart";
 import { useAppSelector } from "@/redux/store/hooks";
-import DropdownMenuComponent from "@/components/DropdownMenu";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
+
+
+interface Business {
+  businessName: string;
+  licenseNumber: string;
+  domain: string;
+  businessEmail: string;
+  description?: string;
+  website?: string;
+  address?: string;
+  facebookPageId?: string;
+  instagramPageId?: string;
+  totalLeads?: number;
+  amountSpent?: number;
+}
 
 const Dashboard = () => {
-  const router = useRouter();
-  const handleLogout = () => {
-    router.push("/login");
-  };
-   const token = localStorage.getItem("token");
+    const [business, setBusiness] = useState<Business | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+      const fetchBusiness = async () => {
+        try {
+          console.log("here");
+
+          const token = localStorage.getItem("token");
+          const response = await fetch(
+            "http://localhost:5000/api/business/my-business",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+              },
+            }
+          );
+          if (response.ok) {
+            const data = await response.json(); // Parse the JSON response
+            setBusiness(data); // Set the image URL state
+            console.log(data);
+            setLoading(false);
+          } else {
+            console.error("Failed to fetch photo:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error fetching photo:", error);
+        }
+      };
+      fetchBusiness();
+    }, []); 
 
   return (
-    <div className="p-6 max-h-screen w-full overflow-y-scroll">
-      <div className="px-20 h-10 items-center flex flex-col justify-center bg-red-300 opacity-50 border-red-600 border-2 mb-4 rounded-md">
-        <h1>{token}</h1>
-      </div><Navbar title="Dashboard" description="Main Component" />
-      
+    <div className="p-6 max-h-screen w-full overflow-y-scroll">  
+        <Link
+          className="px-20 h-10 items-center flex flex-col justify-center bg-red-300 opacity-50 border-red-600 border-2 mb-4 rounded-md"
+          href="/dashboard/businessconfiguration"
+        >
+          Click to configure your business!
+        </Link>
+      <Navbar title="Dashboard" description={business?.businessName} />
+
       <div className="mt-6 flex justify-between">
-        <Card image="leadcard.svg" title="Total Leads" detail="1800" />
-        <Card image="spendcard.svg" title="Spent this month" detail="$642.39" />
-        <Card image="totalleadscard.svg" title="Total Leads" detail="2935" />
+        <Card image="leadcard.svg" title="Total Leads" detail={business?.totalLeads} />
+        <Card image="spendcard.svg" title="Spent this month" detail={business?.amountSpent} />
+        <Card image="totalleadscard.svg" title="Total Leads" detail={2935} />
 
         <Card
           image="newassignmentscard.svg"

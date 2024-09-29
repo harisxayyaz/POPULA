@@ -1,17 +1,10 @@
-"use client"
+"use client";
 import React from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import Card from "@/components/Card";
 import HorizontalScrollImages from "@/components/HorizontalScrollImages";
 import AdCard from "@/components/AdCard";
 
 const AdManager = () => {
-  const router = useRouter();
-  const handleLogout = () => {
-    Cookies.remove("token");
-    router.push("/login");
-  };
   return (
     <div className="max-h-screen w-full overflow-y-scroll  p-4">
       <div className="flex justify-between ">
@@ -38,7 +31,6 @@ const AdManager = () => {
           />
         </div>
       </div>
-
       <div className="mt-6 flex justify-between">
         <Card image="/leadcard.svg" title="Total Views" detail="978" />
         <Card image="/ad1.svg" title="Total Clicks" detail="1435" />
@@ -94,7 +86,7 @@ const AdManager = () => {
               </h1>
               <h1 className="pl-5">13 Feb 2024</h1>
               <h1>20 Feb 2024</h1>
-              <img src="/adprogress3.svg" alt="" /> 
+              <img src="/adprogress3.svg" alt="" />
             </div>
             <div className="flex justify-between">
               <h1 className=" font-bold text-[#2B3674] w-[20%]">

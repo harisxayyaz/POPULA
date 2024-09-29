@@ -3,7 +3,7 @@ import React from "react";
 interface CardProps {
   image: string;
   title: string;
-  detail: string;
+  detail: number;
 }
 
 const Card: React.FC<CardProps> = ({ image, title, detail }) => {

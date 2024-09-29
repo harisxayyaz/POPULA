@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Unna } from "next/font/google"; // Import font if needed
+
+const unna = Unna({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const ResetPassword = ({ params }: { params: { token: string } }) => {
   const router = useRouter();
@@ -28,6 +34,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `${params.token}`,
           },
           body: JSON.stringify({ password }), // Send new password
         }
@@ -52,42 +59,54 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
   };
 
   return (
-    <div className="bg-custom-purple h-screen w-screen flex flex-col justify-center items-center">
-      <div className="w-[25%] h-[40%] bg-white rounded">
-        <form className="p-6 space-y-4" onSubmit={handleSubmit}>
-          <h1>New Password</h1>
-          <input
-            type="password"
-            placeholder="new password"
-            className="w-full h-10 border-gray border-2 pl-4"
-            value={password} // Bind new password state
-            onChange={(e) => setNewPassword(e.target.value)} // Update state on change
-            required // Ensure input is required
-          />
-          <h1>Confirm New Password</h1>
-          <input
-            type="password"
-            placeholder="confirm new password"
-            className="w-full h-10 border-gray border-2 pl-4"
-            value={confirmPassword} // Bind confirm password state
-            onChange={(e) => setConfirmPassword(e.target.value)} // Update state on change
-            required // Ensure input is required
-          />
-          <button
-            type="submit"
-            className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-custom-purple hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            disabled={isSubmitting} // Disable button while submitting
-          >
-            {isSubmitting ? "Submitting..." : "Enter"}{" "}
-            {/* Change button text */}
-          </button>
-        </form>
+    <main className="flex flex-col w-screen h-screen">
+      <section className="w-full h-full p-6 flex flex-col justify-center items-center">
+        <div className="w-full max-w-md h-auto bg-white rounded-md shadow-md p-6 flex flex-col">
+          <div className={`${unna.className} text-center mb-6`}>
+            <h1 className="text-4xl font-bold">New Password</h1>
+          </div>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {/* New Password Input */}
+            <div className="relative">
+              <input
+                type="password"
+                placeholder="Enter new password"
+                className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                value={password} // Bind new password state
+                onChange={(e) => setNewPassword(e.target.value)} // Update state on change
+                required // Ensure input is required
+              />
+            </div>
+            {/* Confirm Password Input */}
+            <div className="relative">
+              <input
+                type="password"
+                placeholder="Confirm new password"
+                className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                value={confirmPassword} // Bind confirm password state
+                onChange={(e) => setConfirmPassword(e.target.value)} // Update state on change
+                required // Ensure input is required
+              />
+            </div>
+            {/* Submit Button */}
+            <div className="relative">
+              <button
+                type="submit"
+                className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700"
+                disabled={isSubmitting} // Disable button while submitting
+              >
+                {isSubmitting ? "Submitting..." : "Enter"}
+                {/* Change button text */}
+              </button>
+            </div>
+          </form>
 
-        {/* Display success or error messages */}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
-        {message && <p className="text-green-500 mt-4">{message}</p>}
-      </div>
-    </div>
+          {/* Display success or error messages */}
+          {error && <p className="text-red-500 mt-4">{error}</p>}
+          {message && <p className="text-green-500 mt-4">{message}</p>}
+        </div>
+      </section>
+    </main>
   );
 };
 

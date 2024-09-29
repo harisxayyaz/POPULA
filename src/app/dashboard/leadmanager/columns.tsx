@@ -1,9 +1,8 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -92,4 +91,34 @@ export const columns: ColumnDef<Lead>[] = [
     accessorKey: "status",
     header: "Status",
   },
+  {
+    accessorKey: "delete",
+    header: "Actions",
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
+        <Button variant="outline" onClick={() => handleView(row.original)}>
+          <FontAwesomeIcon icon={faEye} />
+        </Button>
+        <Button variant="outline" onClick={() => handleEdit(row.original)}>
+          <FontAwesomeIcon icon={faEdit} />
+        </Button>
+        <Button variant="outline" onClick={() => handleDelete(row.original)}>
+          <FontAwesomeIcon icon={faTrash} />
+        </Button>
+      </div>
+    ),
+  },
 ];
+
+// Example functions for handling view, edit, and delete actions
+const handleView = (lead:Lead) => {
+  console.log("Viewing lead:", lead);
+};
+
+const handleEdit = (lead: Lead) => {
+  console.log("Editing lead:", lead);
+};
+
+const handleDelete = (lead: Lead) => {
+  console.log("Deleting lead:", lead);
+};

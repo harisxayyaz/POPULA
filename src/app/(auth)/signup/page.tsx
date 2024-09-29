@@ -26,7 +26,6 @@ const Signup = () => {
       return;
     }
 
-
     if (!agreeToTerms) {
       setError("You must agree to the terms and conditions.");
       return;
@@ -58,7 +57,7 @@ const Signup = () => {
 
   return (
     <main className="flex flex-col md:flex-row w-screen h-screen">
-      <section className="md:w-[60%] md:h-full p-6 flex flex-col order-1 md:order-2">
+      <section className="w-full md:h-full p-6 flex flex-col order-1 md:order-2">
         <div className="flex justify-end mb-6 pr-6">
           <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
             <Link href="/login">Already have an account? Sign in</Link>
@@ -160,25 +159,6 @@ const Signup = () => {
             <img src="/google.svg" alt="google" className="h-5 w-5" />
           </div>
         </div>
-      </section>
-      <section
-        className="flex flex-col gap-3 justify-center items-center md:h-full md:w-[40%] bg-[#270139] text-center md:text-left py-8 px-24 bg-cover bg-center order-2 md:order-1"
-        style={{ backgroundImage: "url('/design.svg')" }}
-      >
-        <img
-          src="/whiteLogo.svg"
-          alt="white logo"
-          className="h-12 md:block hidden"
-        />
-
-        <img src="/user.png" alt="user photo" className="h-24 w-24" />
-        <p className="text-white text-center">
-          “POPULA provided exceptional service, exceeding my expectations and
-          leaving me extremely satisfied.”
-        </p>
-        <p className="text-[#31A1A1] text-center tracking-widest ">
-          ANTON VILLE | CEO, ADC PHARM.
-        </p>
       </section>
     </main>
   );

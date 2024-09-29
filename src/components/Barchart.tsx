@@ -13,13 +13,13 @@ import {
 export const description = "A bar chart with a label";
 
 const chartData = [
-  { month: "Mon", desktop: 186 },
-  { month: "Tue", desktop: 305 },
-  { month: "Wed", desktop: 237 },
-  { month: "Thur", desktop: 73 },
-  { month: "Fri", desktop: 209 },
-  { month: "Sat", desktop: 214 },
-  { month: "Sun ", desktop: 214 },
+  { month: "Mon", desktop: 0 },
+  { month: "Tue", desktop: 0 },
+  { month: "Wed", desktop: 0 },
+  { month: "Thur", desktop: 0 },
+  { month: "Fri", desktop: 0 },
+  { month: "Sat", desktop: 0 },
+  { month: "Sun ", desktop: 0 },
 ];
 
 const chartConfig = {

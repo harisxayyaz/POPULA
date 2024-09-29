@@ -1,13 +1,13 @@
-import React from 'react'
-import { useRouter } from "next/navigation";
+import React from "react";
+import { useRouter } from "nextjs-toploader";
 import Cookies from "js-cookie";
 
 const BusinessConfiguration = () => {
-     const router = useRouter();
-     const handleLogout = () => {
-       Cookies.remove("token");
-       router.push("/login");
-     };
+  const router = useRouter();
+  const handleLogout = () => {
+    Cookies.remove("token");
+    router.push("/login");
+  };
   return (
     <div className="bg-red-200 h-full">
       <div className="flex justify-between ">
@@ -38,17 +38,15 @@ const BusinessConfiguration = () => {
       </div>
 
       <div className="bg-blue-200 p-4 border-y-1 border-black">
-        <ul className='flex justify-between'>
+        <ul className="flex justify-between">
           <li>1- Basic Information</li>
           <li>2- Administrative Details</li>
           <li>3- Bank Info</li>
           <li>4- Social Media Configuration</li>
         </ul>
-
-
       </div>
     </div>
   );
-}
+};
 
-export default BusinessConfiguration
+export default BusinessConfiguration;
