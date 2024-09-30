@@ -8,7 +8,8 @@ const Websiteanalysis = () => {
   return (
     //  <WebsiteAnalysis/>
     <div className="max-h-screen w-full overflow-y-scroll  p-4">
-      web analysis
+      <WebsiteAnalysis/>
+      
     </div>
   );
 };

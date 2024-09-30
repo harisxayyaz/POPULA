@@ -1,25 +1,51 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "nextjs-toploader/app";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTachometerAlt,
+  faNewspaper,
+  faUserTie,
+  faUser,
+  faBuilding,
+  faChartBar,
+  faWrench,
+  faUsers,
+  faCog,
+  faClipboardList,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
   const functions = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Post Manager", path: "/dashboard/postmanager" },
-    { name: "Lead Manager", path: "/dashboard/leadmanager" },
-    { name: "Profile Management", path: "/dashboard/profilemanagement" },
+    { name: "Dashboard", path: "/dashboard", icon: faTachometerAlt },
+    { name: "Post Manager", path: "/dashboard/postmanager", icon: faNewspaper },
+    { name: "Lead Manager", path: "/dashboard/leadmanager", icon: faUserTie },
+    {
+      name: "Profile Management",
+      path: "/dashboard/profilemanagement",
+      icon: faUser,
+    },
     {
       name: "Business Profile",
       path: "/dashboard/businessprofile",
+      icon: faBuilding,
     },
-    { name: "Website Analysis", path: "/dashboard/websiteanalysis" },
-    { name: "Form Generator", path: "/dashboard/formgenerator" },
-    { name: "Templates", path: "/dashboard/template" },
-    { name: "Team", path: "/dashboard/team" },
-    { name: "Settings", path: "/dashboard/settings" },
+    {
+      name: "Website Analysis",
+      path: "/dashboard/websiteanalysis",
+      icon: faChartBar,
+    },
+    {
+      name: "Form Generator",
+      path: "/dashboard/formgenerator",
+      icon: faClipboardList,
+    },
+    { name: "Templates", path: "/dashboard/template", icon: faWrench },
+    { name: "Team", path: "/dashboard/team", icon: faUsers },
+    { name: "Settings", path: "/dashboard/settings", icon: faCog },
   ];
 
   const handleClick = (path: string, index: number) => {
@@ -40,9 +66,8 @@ const Sidebar: React.FC = () => {
               className={`flex content-between w-full h-10 mt-2 mb-2 items-center cursor-pointer hover:bg-slate-100 hover:translate-y-[-4px] transition-transform`}
               onClick={() => handleClick(item.path, index)}
             >
-              <img
-                src="/Vector.svg"
-                alt=""
+              <FontAwesomeIcon
+                icon={item.icon}
                 className="w-[15px] h-[15px] mr-5"
               />
               <li

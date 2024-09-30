@@ -36,10 +36,10 @@ const Form: React.FC = () => {
       const data = { email, phoneNumber: phone };
 
       try {
-                  window.location.href =
-                    "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
+           window.location.href =
+          "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         const response = await fetch(
-          "https://popula-backend.onrender.com/api/leads",
+          "https://b1d0-115-186-187-90.ngrok-free.app/api/lead/leadManual",
           {
             method: "POST",
             headers: {
@@ -49,7 +49,8 @@ const Form: React.FC = () => {
           }
         );
         if (response.ok) {
-
+          console.log("submitted successfully");
+          
         } else {
           console.error("Failed to submit form data", response.statusText);
         }

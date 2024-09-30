@@ -52,6 +52,8 @@ export function DataTable<TData, TValue>({
   const [selectedField, setSelectedField] = React.useState<string>("email");
   const [filterValue, setFilterValue] = React.useState<string>("");
 
+  console.log("Data",data);
+  
   const table = useReactTable({
     data,
     columns,
