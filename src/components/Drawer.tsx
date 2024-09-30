@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "nextjs-toploader";
+import { useRouter } from "next/navigation";
+
 import Cookies from "js-cookie";
 
 interface DrawerProps {

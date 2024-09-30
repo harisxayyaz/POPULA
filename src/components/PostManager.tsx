@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "nextjs-toploader";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import Card from "./Card";

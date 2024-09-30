@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import { useRouter } from "nextjs-toploader";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const Dashboard = () => {
