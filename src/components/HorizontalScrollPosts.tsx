@@ -1,70 +1,109 @@
-// components/HorizontalScrollImages.tsx
-import React, { useRef, useEffect } from "react";
+import { log } from "console";
+import React, { useRef, useEffect, useState } from "react";
+
+type Post = {
+  id: string;
+  message?: string;
+  story?: string;
+  created_time: string;
+  attachments?: {
+    data: {
+      media: {
+        image: {
+          src: string;
+        };
+      };
+    }[];
+  };
+};
 
 const HorizontalScrollPosts: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [posts, setPosts] = useState<Post[]>([]); // State for storing posts
 
+  useEffect(() => {
+    // Fetch posts from the API when the component mounts
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          "https://graph.facebook.com/v20.0/370027042861373/feed?fields=message,story,created_time,attachments{media},id&access_token=EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe"
+        );
+        const data = await response.json();
+        setPosts(data.data); // Update state with the fetched posts
+        console.log(data.data);
+        
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  // Scroll logic to scroll continuously
   useEffect(() => {
     const scrollElement = scrollRef.current;
     let scrollInterval: NodeJS.Timeout;
 
-    const handleScrollReset = () => {
+    const handleScroll = () => {
       if (scrollElement) {
-        const scrollWidth =
+        const maxScrollLeft =
           scrollElement.scrollWidth - scrollElement.clientWidth;
-        const scrollLeft = scrollElement.scrollLeft;
 
-        if (scrollLeft >= scrollWidth) {
-          // Reset to first image smoothly
+        // Scroll by a small amount
+        scrollElement.scrollBy({
+          left: 2, // Adjust speed of scroll
+          behavior: "smooth",
+        });
+
+        // If we reach the end, reset the scroll back to the beginning
+        if (scrollElement.scrollLeft >= maxScrollLeft) {
           scrollElement.scrollTo({ left: 0, behavior: "smooth" });
         }
       }
     };
 
-    scrollInterval = setInterval(handleScrollReset, 100);
+    // Set interval for continuous scrolling
+    scrollInterval = setInterval(handleScroll, 200); // Adjust interval time for smoothness
 
     return () => clearInterval(scrollInterval);
   }, []);
 
+  // Function to display posts (similar to the displayFeed function)
+  function displayFeed(posts: Post[], platform: string) {
+    return posts.map((post) => (
+      <div
+        key={post.id}
+        className="feed-item w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
+        onClick={() =>
+          window.open(
+            platform === "facebook"
+              ? `https://www.facebook.com/${post.id}`
+              : "#",
+            "_blank"
+          )
+        }
+      >
+        {/* Display image if available */}
+        {post.attachments?.data[0]?.media?.image?.src && (
+          <div className="bg-white p-4 rounded-xl">
+            <p className=" text-center">Created Time: <br />{post.created_time}</p>
+            <img
+              src={post.attachments.data[0].media.image.src}
+              alt={post.message || "Post Image"}
+              className="w-full h-48 bg-cover"
+            />
+          </div>
+        )}
+      </div>
+    ));
+  }
+
   return (
-    <div ref={scrollRef} className="overflow-hidden whitespace-nowrap w-full">
+    <div ref={scrollRef} className="overflow-hidden p-10  whitespace-nowrap w-full">
       <div className="flex scroll-animation gap-6 p-10">
-        <img
-          src="/adv1.svg"
-          alt="Ad 1"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adv2.svg"
-          alt="Ad 2"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adv3.svg"
-          alt="Ad 3"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adv4.svg"
-          alt="Ad 4"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adv5.svg"
-          alt="Ad 5"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adv6.svg"
-          alt="Ad 6"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        <img
-          src="/adcard1.svg"
-          alt="Ad 1"
-          className="w-[30%] flex-shrink-0 transition-transform transform hover:scale-110 cursor-pointer"
-        />
-        {/* Add other images */}
+        {/* Display fetched posts */}
+        {displayFeed(posts, "facebook")}
       </div>
     </div>
   );

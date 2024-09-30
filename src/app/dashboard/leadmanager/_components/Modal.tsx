@@ -48,12 +48,11 @@ const Modal = () => {
         window.location.reload(); // Refresh the page after 2 seconds
       }, 50);
     } catch (error) {
-      console.error("Error creating lead:", error.message);
       setErrorMessage("Error creating lead. Please try again.");
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { id, value } = e.target;
     setLeadData((prevData) => ({
       ...prevData,

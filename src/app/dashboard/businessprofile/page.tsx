@@ -58,9 +58,37 @@ const BusinessProfile: React.FC = () => {
     setEditingField(field);
   };
 
-  const handleSave = (field: keyof Business) => {
+  const handleSave = async (field: keyof Business) => {
     if (business) {
       setBusiness({ ...business, [field]: formData[field] });
+      console.log(formData);
+      const token = localStorage.getItem("token"); // Replace 'your_token_key' with the actual key you used to store the token.
+
+      // Set up the fetch options
+      const fetchOptions = {
+        method: "P",
+        headers: {
+          "Content-Type": "application/json", // Assuming you're sending JSON data
+          Authorization: `Bearer ${token}`, // Add your authorization token here
+        },
+        body: JSON.stringify(formData), // Convert form data to JSON
+      };
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/business/66f7fdcbdf10fd79bf5c094c",
+          fetchOptions
+        ); // Replace with your API endpoint
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const result = await response.json(); // Parse the response JSON
+        console.log("Success:", result); // Handle the response
+      } catch (error) {
+        console.error("Error occurred while submitting form data:", error);
+      }
     }
     setEditingField(null);
   };

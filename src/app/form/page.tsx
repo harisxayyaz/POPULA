@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 
 const Form: React.FC = () => {
@@ -59,8 +60,9 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 to-yellow-300">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br ">
+      <img src="/bata.jpeg" width={10} height={10} alt="bg" className="absolute h-screen w-screen z-30"/>
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg z-50">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Get in Touch
         </h2>

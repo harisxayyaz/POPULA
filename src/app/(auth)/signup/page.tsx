@@ -58,11 +58,6 @@ const Signup = () => {
   return (
     <main className="flex flex-col md:flex-row w-screen h-screen">
       <section className="w-full md:h-full p-6 flex flex-col order-1 md:order-2">
-        <div className="flex justify-end mb-6 pr-6">
-          <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
-            <Link href="/login">Already have an account? Sign in</Link>
-          </p>
-        </div>
         <div className="flex flex-col justify-center md:h-full h-[80vh] ">
           <div className="flex justify-center mb-6">
             <form className="space-y-6 w-full max-w-md" onSubmit={handleSubmit}>
@@ -148,6 +143,11 @@ const Signup = () => {
                 >
                   Sign Up for free
                 </button>
+              </div>
+              <div className="flex justify-center">
+                <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
+                  <Link href="/login">Already have an account? Sign in</Link>
+                </p>
               </div>
               {/* Display error/success messages */}
               {error && <p className="text-red-500">{error}</p>}

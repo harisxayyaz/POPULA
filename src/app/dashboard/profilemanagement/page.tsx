@@ -3,10 +3,17 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ProfileButton from "./_components/ProfileButton";
-import UpdatePhoto from "./_components/UpdatePhoto";
 
 const ProfileManagement = () => {
   const [imageUrl, setImageUrl] = useState(""); // State to hold the image URL
+
+  // State to hold form values
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    dateOfBirth: "",
+  });
 
   useEffect(() => {
     const fetchPhoto = async () => {
@@ -16,13 +23,13 @@ const ProfileManagement = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
 
         if (response.ok) {
-          const data = await response.json(); // Parse the JSON response
-          setImageUrl(data.imageUrl); // Set the image URL state
+          const data = await response.json();
+          setImageUrl(data.imageUrl);
           console.log("Photo URL fetched successfully");
         } else {
           console.error("Failed to fetch photo:", response.statusText);
@@ -33,24 +40,66 @@ const ProfileManagement = () => {
     };
 
     fetchPhoto();
-  }, [imageUrl]); // Empty dependency array to run only on mount
+  }, []); // Run only once on mount
+
+  // Handle input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e: any) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+    console.log(formData); // Log form data to the console
+     const token = localStorage.getItem("token"); // Replace 'your_token_key' with the actual key you used to store the token.
+
+     // Set up the fetch options
+     const fetchOptions = {
+       method: "PUT",
+       headers: {
+         "Content-Type": "application/json", // Assuming you're sending JSON data
+         Authorization: `Bearer ${token}`, // Add your authorization token here
+       },
+       body: JSON.stringify(formData), // Convert form data to JSON
+     };
+
+     try {
+       const response = await fetch(
+         "http://localhost:5000/api/user/profile",
+         fetchOptions
+       ); // Replace with your API endpoint
+
+       if (!response.ok) {
+         throw new Error(`Error: ${response.status} - ${response.statusText}`);
+       }
+
+       const result = await response.json(); // Parse the response JSON
+       console.log("Success:", result); // Handle the response
+     } catch (error) {
+       console.error("Error occurred while submitting form data:", error);
+     }
+  };
 
   return (
-    <div className="max-h-screen w-full overflow-y-scroll p-4">
-      <Navbar title="Profile Management" description="Profile Management" />
-      <div className="flex flex-col justify-center items-center mt-8">
-        <h1 className="self-center text-2xl font-bold">Edit Profile</h1>
+    <div className="max-h-screen w-full overflow-y-scroll bg-gray-50 p-6">
+      <Navbar title="Profile Management" description="Manage your profile" />
+      <div className="flex flex-col justify-center items-center mt-10">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Edit Profile</h1>
 
-        <div className="flex gap-6 py-8">
-          {/* Use the state variable for the image source */}
-          <Image
-            src={
-              imageUrl 
-            } // Fallback image if URL is empty
-            width={200}
-            height={200}
-            alt="Profile"
-          />
+        <div className="flex gap-8 py-8 bg-white shadow-lg rounded-lg p-6">
+          <div className="relative w-48 h-48">
+            <Image
+              src={imageUrl || "/placeholder.png"} // Fallback image
+              layout="fill"
+              objectFit="cover"
+              alt="Profile"
+              className="rounded-full border-4 border-purple-600"
+            />
+          </div>
           <div className="flex flex-col justify-center gap-3">
             <ProfileButton title="Update Profile Photo" />
             <ProfileButton title="Delete Profile Photo" />
@@ -58,31 +107,37 @@ const ProfileManagement = () => {
         </div>
 
         <div className="flex justify-center mb-6">
-          <form className="space-y-6 w-full max-w-md">
-            <img src="/logo.svg" alt="logo" className="h-12 block md:hidden" />
+          <form className="space-y-6 w-full max-w-md" onSubmit={handleSubmit}>
+            <img
+              src="/logo.svg"
+              alt="logo"
+              className="h-12 block md:hidden mb-4"
+            />
 
             {/* First Name and Last Name */}
             <div className="flex space-x-4">
               <div className="relative w-1/2">
                 <input
                   type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
                   required
-                  className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                  placeholder="First Name"
+                  className="w-full h-10 text-md px-3 text-black bg-transparent border border-purple-600 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
                 />
-                <label className="absolute top-1/2 left-1 text-sm text-black px-2 pointer-events-none transform -translate-y-1/2 transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:bg-white peer-valid:top-0 peer-valid:text-sm peer-valid:bg-white">
-                  First Name
-                </label>
               </div>
 
               <div className="relative w-1/2">
                 <input
                   type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
                   required
-                  className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                  placeholder="Last Name"
+                  className="w-full h-10 text-md px-3 text-black bg-transparent border border-purple-600 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
                 />
-                <label className="absolute top-1/2 left-1 text-sm text-black px-2 pointer-events-none transform -translate-y-1/2 transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:bg-white peer-valid:top-0 peer-valid:text-sm peer-valid:bg-white">
-                  Last Name
-                </label>
               </div>
             </div>
 
@@ -90,20 +145,24 @@ const ProfileManagement = () => {
             <div className="relative">
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
-                className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                placeholder="Email"
+                className="w-full h-10 text-md px-3 text-black bg-transparent border border-purple-600 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
               />
-              <label className="absolute top-1/2 left-1 text-sm text-black px-2 pointer-events-none transform -translate-y-1/2 transition-all peer-focus:top-0 peer-focus:text-sm peer-focus:bg-white peer-valid:top-0 peer-valid:text-sm peer-valid:bg-white">
-                Email
-              </label>
             </div>
 
             {/* Date of Birth */}
             <div className="relative">
               <input
                 type="date"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+                onChange={handleInputChange}
                 required
-                className="w-full h-10 text-md px-2 text-black bg-transparent border border-purple rounded-md outline-none peer"
+                className="w-full h-10 text-md px-3 text-black bg-transparent border border-purple-600 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
               />
             </div>
 
@@ -111,7 +170,7 @@ const ProfileManagement = () => {
             <div className="relative">
               <button
                 type="submit"
-                className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700"
+                className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700 transition duration-200"
               >
                 Submit
               </button>

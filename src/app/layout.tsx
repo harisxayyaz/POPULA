@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Urbanist } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./(root)/globals.css";
 import StoreProvider from "./(root)/StoreProvider";
 import NextTopLoader from "nextjs-toploader";
 
-const inter = Inter({ subsets: ["latin"] });
 
-const urbanist = Urbanist({
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["400", "600", "700"], // Specify weights you want to use
   display: "swap",
-  variable: "--font-urbanist",
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StoreProvider>
-        <body className={urbanist.className}>
+        <body className={poppins.className}>
           <NextTopLoader />
           {children}
         </body>

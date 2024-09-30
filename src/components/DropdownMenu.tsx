@@ -47,7 +47,7 @@ const DropdownMenuComponent = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Image
-          src={imageUrl} // Fallback image if URL is empty
+          src={imageUrl || "/placeholder.png"} // Fallback image if URL is empty
           alt="Profile"
           className="cursor-pointer "
           style={{

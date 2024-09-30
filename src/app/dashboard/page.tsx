@@ -34,7 +34,6 @@ const Dashboard = () => {
       const fetchBusiness = async () => {
         try {
           console.log("here");
-
           const token = localStorage.getItem("token");
           const response = await fetch(
             "http://localhost:5000/api/business/my-business",
@@ -75,7 +74,6 @@ const Dashboard = () => {
         <Card image="leadcard.svg" title="Total Leads" detail={business?.totalLeads} />
         <Card image="spendcard.svg" title="Spent this month" detail={business?.amountSpent} />
         <Card image="totalleadscard.svg" title="Total Leads" detail={2935} />
-
         <Card
           image="newassignmentscard.svg"
           title="New Assignments"

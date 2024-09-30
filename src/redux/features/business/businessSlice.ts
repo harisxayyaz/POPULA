@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
-  token:""
+  token:"",
+  captionRedux:"",
+  hashtagsRedux:"",
 };
 
 const businessSlice = createSlice({
@@ -11,12 +13,19 @@ const businessSlice = createSlice({
     setToken: (state, action: PayloadAction<any>) => {
       state.token = action.payload;
     },
-    
+    setCaptionRedux: (state, action: PayloadAction<any>) => {
+      state.captionRedux = action.payload;
+    },
+    setHashtagsRedux: (state, action: PayloadAction<any>) => {
+      state.hashtagsRedux = action.payload;
+    },
   },
 });
 
 export const {
-  setToken
+  setToken,
+  setCaptionRedux,
+  setHashtagsRedux
 } = businessSlice.actions;
 
 export default businessSlice.reducer;
