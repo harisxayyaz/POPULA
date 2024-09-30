@@ -68,12 +68,11 @@ const Dashboard = () => {
         >
           Click to configure your business!
         </Link>
-      <Navbar title="Dashboard" description={business?.businessName} />
-
+      <Navbar title="Dashboard" description={business?.businessName || ""} />
       <div className="mt-6 flex justify-between">
-        <Card image="leadcard.svg" title="Total Leads" detail={business?.totalLeads} />
-        <Card image="spendcard.svg" title="Spent this month" detail={business?.amountSpent} />
-        <Card image="totalleadscard.svg" title="Total Leads" detail={2935} />
+        <Card image="leadcard.svg" title="Total Leads" detail={String(business?.totalLeads) } />
+        <Card image="spendcard.svg" title="Spent this month" detail={String(business?.amountSpent)} />
+        <Card image="totalleadscard.svg" title="Total Leads" detail={String(2935)} />
         <Card
           image="newassignmentscard.svg"
           title="New Assignments"

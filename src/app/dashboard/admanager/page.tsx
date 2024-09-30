@@ -129,3 +129,13 @@
 // };
 
 // export default AdManager;
+
+import React from 'react'
+
+const admanager = () => {
+  return (
+    <div>admanager</div>
+  )
+}
+
+export default admanager
