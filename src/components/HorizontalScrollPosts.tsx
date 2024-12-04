@@ -26,12 +26,11 @@ const HorizontalScrollPosts: React.FC = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          "https://graph.facebook.com/v20.0/370027042861373/feed?fields=message,story,created_time,attachments{media},id&access_token=EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe"
+          "https://graph.facebook.com/v20.0/370027042861373/feed?fields=message,story,created_time,attachments{media},id&access_token=EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD"
         );
         const data = await response.json();
         setPosts(data.data); // Update state with the fetched posts
         console.log(data.data);
-        
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -87,7 +86,10 @@ const HorizontalScrollPosts: React.FC = () => {
         {/* Display image if available */}
         {post.attachments?.data[0]?.media?.image?.src && (
           <div className="bg-white p-4 rounded-xl">
-            <p className=" text-center">Created Time: <br />{post.created_time}</p>
+            <p className=" text-center">
+              Created Time: <br />
+              {post.created_time}
+            </p>
             <img
               src={post.attachments.data[0].media.image.src}
               alt={post.message || "Post Image"}
@@ -100,7 +102,10 @@ const HorizontalScrollPosts: React.FC = () => {
   }
 
   return (
-    <div ref={scrollRef} className="overflow-hidden p-10  whitespace-nowrap w-full">
+    <div
+      ref={scrollRef}
+      className="overflow-hidden p-10  whitespace-nowrap w-full"
+    >
       <div className="flex scroll-animation gap-6 p-10">
         {/* Display fetched posts */}
         {displayFeed(posts, "facebook")}

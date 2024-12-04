@@ -63,7 +63,13 @@ const PostManager = () => {
             <Image src="/plus.svg" width={50} height={50} alt="eye" />
             View All Posts
           </Link>
-          <PostModal />
+          <Link
+            href={"/dashboard/postmanager/allposts"}
+            className="flex bg-white items-center justify-center w-[248px] h-[100px] rounded-xl drop-shadow-md hover:drop-shadow-lg hover:translate-y-[-4px] transition-transform cursor-pointer gap-4"
+          >
+            <Image src="/plus.svg" width={50} height={50} alt="eye" />
+            View Insights
+          </Link>
         </div>
 
         <div className=" h-[95%] pl-4 flex flex-col bg-white w-full rounded-xl drop-shadow-md hover:drop-shadow-lg hover:translate-y-[-4px] transition-transform cursor-pointer ">

@@ -18,6 +18,14 @@ interface FacebookResponse {
   post_id?: string;
 }
 
+interface InstagramMediaResponse {
+  id: string;
+}
+
+interface InstagramPublishResponse {
+  id: string;
+}
+
 type Platform = "Facebook" | "Instagram";
 
 const PostModal: React.FC = () => {
@@ -31,13 +39,17 @@ const PostModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [posted, isPosted] = useState(false);
   const { captionRedux } = useAppSelector((state) => state.business); // Fetch caption from Redux
+  const { hashtagsRedux } = useAppSelector((state) => state.business); // Fetch caption from Redux
 
   // Monitor changes in captionRedux and update local caption state
   useEffect(() => {
     if (captionRedux) {
-      setCaption(captionRedux); // Update caption when captionRedux changes
+      setCaption(captionRedux + hashtagsRedux); // Update caption when captionRedux changes
     }
-  }, [captionRedux]);
+    if (hashtagsRedux) {
+      setCaption(caption + hashtagsRedux); // Update caption when captionRedux changes
+    }
+  }, [captionRedux, hashtagsRedux]);
 
   const handleUpload = async () => {
     if (media) {
@@ -85,7 +97,7 @@ const PostModal: React.FC = () => {
   async function postPhotoToFacebook(): Promise<void> {
     const facebookPageId = "370027042861373";
     const pageAccessToken =
-      "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe";
+      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
 
     const facebookUrl = `https://graph.facebook.com/v20.0/${facebookPageId}/photos`;
 
@@ -109,6 +121,59 @@ const PostModal: React.FC = () => {
       setStep(4);
     } catch (error: any) {
       console.error("Error posting photo on Facebook:", error.message);
+    }
+  }
+
+  async function postPhotoToInstagram(): Promise<void> {
+    const accessToken =
+      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
+    const instagramUserId = "17841466634260746"; // Replace with your Instagram user ID
+
+    try {
+      // Step 1: Create a media container
+      const containerResponse = await fetch(
+        `https://graph.facebook.com/v20.0/${instagramUserId}/media`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            image_url: mediaUrl!,
+            caption: caption,
+            access_token: accessToken,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const containerData: InstagramMediaResponse =
+        await containerResponse.json();
+      if (!containerData.id) {
+        throw new Error("Failed to create media container.");
+      }
+
+      // Step 2: Publish the media container
+      const publishResponse = await fetch(
+        `https://graph.facebook.com/v20.0/${instagramUserId}/media_publish`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            creation_id: containerData.id,
+            access_token: accessToken,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const publishData: InstagramPublishResponse =
+        await publishResponse.json();
+      if (!publishData.id) {
+        throw new Error("Failed to publish media.");
+      }
+
+      console.log("Post published to Instagram successfully!");
+    } catch (error: any) {
+      console.error("Error posting to Instagram:", error.message);
     }
   }
 
@@ -185,7 +250,7 @@ const PostModal: React.FC = () => {
             />
             <div className="p-4 flex justify-center gap-4">
               <CaptionModal />
-              <HashtagsModal/>
+              <HashtagsModal />
             </div>
             <div className="flex justify-between px-4">
               <button
@@ -208,6 +273,7 @@ const PostModal: React.FC = () => {
         )}
 
         {/* Step 3: Select Platforms */}
+        {/* Step 3: Select Platforms */}
         {step === 3 && (
           <div>
             <p className="mb-4">Step 3: Select platforms to post</p>
@@ -226,9 +292,24 @@ const PostModal: React.FC = () => {
                 </div>
               ))}
             </div>
+
             <button
-              disabled={isLoading}
-              onClick={postPhotoToFacebook}
+              disabled={isLoading || selectedPlatforms.length === 0} // Disable if no platforms are selected
+              onClick={async () => {
+                setIsLoading(true); // Set loading state
+
+                // Call the appropriate functions based on selected platforms
+                if (selectedPlatforms.includes("Facebook")) {
+                  await postPhotoToFacebook();
+                }
+
+                if (selectedPlatforms.includes("Instagram")) {
+                  await postPhotoToInstagram();
+                }
+
+                setIsLoading(false); // Reset loading state after posts
+                setStep(4); // Move to confirmation step
+              }}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
             >
               {isLoading ? "Posting..." : "Post"}

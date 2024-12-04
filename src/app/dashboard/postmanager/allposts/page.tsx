@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ const SocialMediaFeed: React.FC = () => {
   const [newCaption, setNewCaption] = useState<string>("");
 
   const accessToken =
-    "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe";
+    "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
 
   useEffect(() => {
     fetchFacebookFeed();
@@ -75,10 +75,9 @@ const SocialMediaFeed: React.FC = () => {
     setCurrentPlatform(e.target.value);
     setFeedData([]); // Clear feed data for the new platform
     if (e.target.value === "instagram") {
-        fetchInstagramFeed();
+      fetchInstagramFeed();
     } else {
-       fetchFacebookFeed();
-   
+      fetchFacebookFeed();
     }
   };
 

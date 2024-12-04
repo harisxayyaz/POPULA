@@ -19,13 +19,38 @@ const Signup = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 8; // Minimum 8 characters
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    setError("");
+
+    // Email validation
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email.");
       return;
     }
 
+    // Password validation
+    if (!validatePassword(password)) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    // Password match validation
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    // Terms validation
     if (!agreeToTerms) {
       setError("You must agree to the terms and conditions.");
       return;
@@ -37,7 +62,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, acceptMarketing }),
       });
 
       const data = await response.json();
@@ -67,7 +92,7 @@ const Signup = () => {
                 className="h-12 block md:hidden"
               />
               <div className={`${unna.className} `}>
-                <h1 className=" text-4xl font-bold">
+                <h1 className="text-4xl font-bold">
                   Create Your Free Account And Get Started!
                 </h1>
               </div>
@@ -138,14 +163,14 @@ const Signup = () => {
               {/* Submit button */}
               <div className="relative">
                 <button
-                  className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700 "
+                  className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700"
                   type="submit"
                 >
                   Sign Up for free
                 </button>
               </div>
               <div className="flex justify-center">
-                <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
+                <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800">
                   <Link href="/login">Already have an account? Sign in</Link>
                 </p>
               </div>

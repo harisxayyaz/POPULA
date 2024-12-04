@@ -64,14 +64,15 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
   async function postPhotoToFacebook(): Promise<void> {
     const facebookPageId = "370027042861373"; // Replace with your Page ID
     const pageAccessToken =
-      "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe"; // Replace with your Page access token
+      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD"; // Replace with your Page access token
 
     const facebookUrl = `https://graph.facebook.com/v20.0/${facebookPageId}/photos`;
 
     const params = new URLSearchParams({
       url: imageUrl!,
       access_token: pageAccessToken,
-      message: caption + "\nView Business Website: https://bit.ly/business_shop",
+      message:
+        caption + "\nView Business Website: https://bit.ly/business_shop",
       published: "true",
     });
 
@@ -89,7 +90,7 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
   // Function to post photo to Instagram
   async function postPhotoToInstagram(): Promise<void> {
     const accessToken =
-      "EAB1XqldtBCQBOZBfEI9F78Wp1jhyR2H1azhVC19xUIpDPMMD9I62ytgFsKlkR2ZCgT2PQVU5cr5ZBtCNtcnqm0kw6ZCuBWgikG5tK4IlAOetlszF0ZBbnauV1yLx5K6KNHJNAw8So9Ft15R0McuetTKZB5AgmpZBKZBKsZC0bu4nYWprhxuoTZAvfxqwt6QNzZAzZCPe";
+      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
     const instagramUserId = "17841466634260746"; // Replace with your Instagram user ID
 
     try {
@@ -109,7 +110,8 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
           },
         }
       );
-      const containerData: InstagramMediaResponse = await containerResponse.json();
+      const containerData: InstagramMediaResponse =
+        await containerResponse.json();
       if (!containerData.id) {
         throw new Error("Failed to create media container.");
       }
@@ -128,7 +130,8 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
           },
         }
       );
-      const publishData: InstagramPublishResponse = await publishResponse.json();
+      const publishData: InstagramPublishResponse =
+        await publishResponse.json();
       if (!publishData.id) {
         throw new Error("Failed to publish media.");
       }
@@ -144,19 +147,15 @@ const MediaPopup: React.FC<MediaPopupProps> = ({ onClose }) => {
       alert("Please upload an image and select at least one social platform.");
       return;
     }
-
     setPosting(true); // Start the loader
-
     // If Facebook is selected
     if (facebookChecked) {
       await postPhotoToFacebook();
     }
-
     // If Instagram is selected
     if (instagramChecked) {
       await postPhotoToInstagram();
     }
-
     setPosting(false); // Stop the loader
     setSuccessMessage("Post published successfully!"); // Show success message
 

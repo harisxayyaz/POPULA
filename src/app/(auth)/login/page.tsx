@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "nextjs-toploader/app";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Unna } from "next/font/google";
 import { useAppSelector } from "@/redux/store/hooks";
 import { useAppDispatch } from "@/redux/store/hooks";
@@ -18,10 +18,26 @@ const unna = Unna({
 
 const Login = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();  
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+    useEffect(() => {
+      // Get the token from query params
+       const token = searchParams.get("token");
+
+      if (token) {
+        // Save token to localStorage or cookies for future use
+        localStorage.setItem("token", token );
+        // Redirect to the actual dashboard page (or perform other actions)
+        router.push("/dashboard");
+      } else {
+        // If no token, redirect to login
+        router.push("/login");
+      }
+    }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,7 +125,7 @@ const Login = () => {
               </div>
             </form>
           </div>
-          <div className="flex items-center justify-center cursor-pointer">
+          <div onClick={() => {window.location.href = "http://localhost:5000/auth/google"}} className="flex items-center justify-center cursor-pointer">
             <h1 className="text-center text-sm mr-1">or sign in using</h1>
             <img src="google.svg" alt="google" className="h-5 w-5" />
           </div>

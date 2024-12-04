@@ -40,11 +40,17 @@ export function HashtagsModal() {
         }
       );
 
+       const data = await response.json(); // Parse the response as JSON
+       console.log(data.hashtags); 
+       let hash = "\n\n";
+       for (let index = 0; index < data.hashtags.length; index++) {
+        hash += data.hashtags[index];
+       }
+       dispatch(setHashtagsRedux(hash));
+
       if (!response.ok) {
         throw new Error("Failed to generate caption");
       }
-
-      console.log("Generated caption:", response);
     //   dispatch(setHashtagsRedux(data));
 
       // Close the modal after dispatch

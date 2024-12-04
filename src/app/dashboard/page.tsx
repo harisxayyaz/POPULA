@@ -92,7 +92,7 @@ const Dashboard = () => {
           <div className="flex ">
             <div className="w-[30%] flex flex-col items-center space-y-2">
               <div>
-                <h1 className=" font-bold text-2xl text-[#2B3674]">$37.5k</h1>
+                <h1 className=" font-bold text-2xl text-[#2B3674]">${String(business?.amountSpent)}</h1>
                 <h2 className="text-xs text-[#A3AED0]">Total Spent</h2>
               </div>
 
