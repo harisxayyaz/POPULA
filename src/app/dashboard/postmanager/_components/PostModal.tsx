@@ -97,7 +97,7 @@ const PostModal: React.FC = () => {
   async function postPhotoToFacebook(): Promise<void> {
     const facebookPageId = "370027042861373";
     const pageAccessToken =
-      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
+      "EAB1XqldtBCQBO9ZBZC3RRnHyS1Fj55TvAZAoVBZCbRuTn8ZChRZBHCzurEmkYle8z4ZCxsT4K8yEbPyvsqHCJR9hhC0GeJXHA6A13U0jncODAim6PDGw5nHZBYHZCrkbgAG0UYakYL5WKUsEKzbXrdbVemkN8c1GgqbltZCX0Oo8y4dyobC2oNGZBQauFQBJGE3VQIP";
 
     const facebookUrl = `https://graph.facebook.com/v20.0/${facebookPageId}/photos`;
 
@@ -126,7 +126,7 @@ const PostModal: React.FC = () => {
 
   async function postPhotoToInstagram(): Promise<void> {
     const accessToken =
-      "EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD";
+      "EAB1XqldtBCQBO9ZBZC3RRnHyS1Fj55TvAZAoVBZCbRuTn8ZChRZBHCzurEmkYle8z4ZCxsT4K8yEbPyvsqHCJR9hhC0GeJXHA6A13U0jncODAim6PDGw5nHZBYHZCrkbgAG0UYakYL5WKUsEKzbXrdbVemkN8c1GgqbltZCX0Oo8y4dyobC2oNGZBQauFQBJGE3VQIP";
     const instagramUserId = "17841466634260746"; // Replace with your Instagram user ID
 
     try {

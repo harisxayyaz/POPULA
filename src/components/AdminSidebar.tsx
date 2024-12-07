@@ -20,32 +20,33 @@ const AdminSidebar: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
   const functions = [
-    { name: "Dashboard", path: "/dashboard", icon: faTachometerAlt },
-    { name: "Post Manager", path: "/dashboard/postmanager", icon: faNewspaper },
-    { name: "Lead Manager", path: "/dashboard/leadmanager", icon: faUserTie },
+    { name: "Dashboard", path: "/admin", icon: faTachometerAlt },
+    { name: "Post Manager", path: "/admin/postmanager", icon: faNewspaper },
+    { name: "Lead Manager", path: "/admin/leadmanager", icon: faUserTie },
     {
-      name: "Profile Management",
-      path: "/dashboard/profilemanagement",
+      name: "Business Manager",
+      path: "/admin/profilemanagement",
       icon: faUser,
     },
     {
-      name: "Business Profile",
-      path: "/dashboard/businessprofile",
+      name: "Analytics",
+      path: "/admin/businessprofile",
       icon: faBuilding,
     },
     {
-      name: "Website Analysis",
-      path: "/dashboard/websiteanalysis",
+      name: "Manage Admins",
+      path: "/admin/websiteanalysis",
       icon: faChartBar,
     },
     {
-      name: "Form Generator",
-      path: "/dashboard/formgenerator",
+      name: "Revenue",
+      path: "/admin/formgenerator",
       icon: faClipboardList,
     },
-    { name: "Templates", path: "/dashboard/template", icon: faWrench },
-    { name: "Team", path: "/dashboard/team", icon: faUsers },
-    { name: "Settings", path: "/dashboard/settings", icon: faCog },
+    { name: "Social Media", path: "/admin/socialmedia", icon: faWrench },
+    { name: "Manage Subscriptions", path: "/admin/team", icon: faUsers },
+    { name: "Blogs", path: "/admin/settings", icon: faCog },
+    { name: "Settings", path: "/admin/settings", icon: faCog },
   ];
 
   const handleClick = (path: string, index: number) => {
@@ -56,7 +57,7 @@ const AdminSidebar: React.FC = () => {
   return (
     <div className="w-[370px] h-screen bg-white">
       <div className="flex justify-center p-8">
-        <img src="/sidebarLogo.svg" alt="POPULA" />
+        <img src="/logo-teal.svg" alt="POPULA" />
       </div>
       <div className="flex flex-col items-center">
         <ul>
@@ -68,10 +69,12 @@ const AdminSidebar: React.FC = () => {
             >
               <FontAwesomeIcon
                 icon={item.icon}
-                className="w-[15px] h-[15px] mr-5"
+                className="w-[15px] h-[15px] mr-5 text-[#0F8595]"
               />
               <li
-                className={`${selectedItem === index ? "text-blue-600" : ""}`}
+                className={`text-[#A5D1D7] ${
+                  selectedItem === index ? "text-[#063E45]" : ""
+                }`}
               >
                 {item.name}
               </li>

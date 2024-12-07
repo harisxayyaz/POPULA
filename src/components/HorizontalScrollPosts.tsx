@@ -26,7 +26,7 @@ const HorizontalScrollPosts: React.FC = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          "https://graph.facebook.com/v20.0/370027042861373/feed?fields=message,story,created_time,attachments{media},id&access_token=EAB1XqldtBCQBO6dlX2TJEr8hfUTuVqlL2BhmIKp0P2jnsODeWPs5Wmegrw3XjwwTDzdqNcct0jEqldcXwKO0xQSmZCEjbbQ7kvSNpEiOL6illb9iDTiGJAhTWYaMMCadZAZBZCCuXdAr5aEr4RijqI003XHTtk6TGavKbeQHotbgprnweluB2CPTMxZBPEdkqtEvfLXnZCExRnwmOHSSYWECghIAZDZD"
+          "https://graph.facebook.com/v20.0/370027042861373/feed?fields=message,story,created_time,attachments{media},id&access_token=EAB1XqldtBCQBO9ZBZC3RRnHyS1Fj55TvAZAoVBZCbRuTn8ZChRZBHCzurEmkYle8z4ZCxsT4K8yEbPyvsqHCJR9hhC0GeJXHA6A13U0jncODAim6PDGw5nHZBYHZCrkbgAG0UYakYL5WKUsEKzbXrdbVemkN8c1GgqbltZCX0Oo8y4dyobC2oNGZBQauFQBJGE3VQIP"
         );
         const data = await response.json();
         setPosts(data.data); // Update state with the fetched posts

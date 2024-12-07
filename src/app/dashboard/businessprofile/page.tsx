@@ -15,6 +15,7 @@ interface Business {
   instagramPageId?: string;
   totalLeads?: number;
   amountSpent?: number;
+  status: string;
 }
 
 const BusinessProfile: React.FC = () => {
@@ -66,7 +67,7 @@ const BusinessProfile: React.FC = () => {
 
       // Set up the fetch options
       const fetchOptions = {
-        method: "P",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json", // Assuming you're sending JSON data
           Authorization: `Bearer ${token}`, // Add your authorization token here

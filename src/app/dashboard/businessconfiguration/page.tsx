@@ -27,6 +27,7 @@ const BusinessConfiguration = () => {
     accessToken: "",
     totalLeads: 0,
     amountSpent: 0,
+    status: "pending",
   });
 
   const router = useRouter();
@@ -73,6 +74,7 @@ const BusinessConfiguration = () => {
       accessToken: formData.accessToken,
       totalLeads: formData.totalLeads || 0,
       amountSpent: formData.amountSpent || 0,
+      status: formData.status,
     };
 
     try {
