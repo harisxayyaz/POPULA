@@ -16,6 +16,7 @@ const CreatePost = (props: Props) => {
   const [success, setSuccess] = useState<boolean>(false); // State for success
   const [error, setError] = useState<string | null>(null); // State for error message
   const [descriptionText, setDescriptionText] = useState<string>(""); // New state for description below "Use Description" button
+  const [toggle, setToggle] = useState<boolean>(false); // State for toggling between caption and description
   const router = useRouter();
 
   const handleCaptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -55,6 +56,36 @@ const CreatePost = (props: Props) => {
       }
     }
   };
+
+  const generateCaptionApnaModel = async () => {
+     if (caption) {
+       try {
+         setLoading(true);
+         const response = await fetch(
+           "http://192.168.18.94:4000/generate-caption",
+           {
+             method: "POST",
+             headers: {
+               "Content-Type": "application/json",
+             },
+             body: JSON.stringify({
+               "Product Description": caption,
+             }),
+           }
+         );
+         if (!response.ok) {
+           throw new Error("Failed to generate ad content");
+         }
+         const data = await response.json();
+         setCaption(data.ad_caption); // Update caption with AI-generated content
+       } catch (error) {
+         console.error("Error generating ad content:", error);
+         setError("Failed to generate ad content. Please try again.");
+       } finally {
+         setLoading(false);
+       }
+     }
+  }
 
   const handleMediaUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -287,7 +318,7 @@ const copyDescription = () => {
               <Button
                 className="bg-[#2A327D] w-36"
                 disabled={!caption} // Disable button if no caption
-                onClick={() => generateCaption()} // Trigger AI generation
+                onClick={() => generateCaptionApnaModel()} // Trigger AI generation
               >
                 {loading ? "Generating..." : "Let AI do the job"}
               </Button>

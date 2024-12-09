@@ -43,10 +43,10 @@ const PostManager = () => {
       <Navbar title="Social Sphere" description="Post Manager" />
 
       <div className="mt-6 flex justify-between">
-        <Card image="/Like.svg" title="Total Likes" detail="978" />
-        <Card image="/comment.svg" title="Total Comments" detail="1435" />
+        <Card image="/Like.svg" title="Total Likes" detail="12" />
+        <Card image="/comment.svg" title="Total Comments" detail="1" />
         <Card image="/post.svg" title="Post Count" detail="12" />
-        <Card image="/usa.svg" title="Current Balance" detail="$804" />
+        <Card image="/usa.svg" title="Current Balance" detail="$0" />
       </div>
 
       <div className="h-[45%] flex items-center ">

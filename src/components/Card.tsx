@@ -13,8 +13,20 @@ const Card: React.FC<CardProps> = ({ image, title, detail }) => {
         <img src={image} alt="lead" />
       </div>
       <div className="pl-4">
-        <h1 className="text-[#2B3674]">{title}</h1>
-        <h1 className="text-2xl font-semibold text-[#2B3674]">{detail}</h1>
+        <h1
+          className={`${
+            title === "Current Subscription" ? "text-sm" : "text-md"
+          }  text-[#2B3674]`}
+        >
+          {title}
+        </h1>
+        <h1
+          className={`${
+            title === "Current Subscription" ? "text-sm" : "text-2xl"
+          } font-semibold text-[#2B3674]`}
+        >
+          {detail}
+        </h1>
       </div>
     </div>
   );
