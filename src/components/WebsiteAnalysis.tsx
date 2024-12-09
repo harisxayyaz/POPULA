@@ -13,7 +13,7 @@ const WebsiteAnalysis: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post("http://localhost:3001/api/submit-text", { text });
+      await axios.post("http://localhost:3004/api/submit-text", { text });
       setIframeKey((prevKey) => prevKey + 1); // Update the iframe key to refresh the iframe
     } catch (error) {
       console.error("Error submitting text:", error);

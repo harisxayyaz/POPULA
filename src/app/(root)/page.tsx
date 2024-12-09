@@ -1,162 +1,121 @@
+// Page.tsx
 "use client";
+import { useEffect } from "react";
+import React from "react";
+import Hero from "@/components/landing-page/Hero";
+import Navbar from "@/components/landing-page/Nav";
+import Services from "@/components/landing-page/Services";
+import Satisfaction from "@/components/landing-page/satisfaction";
+import SocialArea from "@/components/landing-page/socialarea";
+import Content from "@/components/landing-page/content";
+import FrameInsights from "@/components/landing-page/frameinsights";
+import Website from "@/components/landing-page/website";
+import Poster from "@/components/landing-page/Poster";
+import FormArea from "@/components/landing-page/FormArea";
+import Blogs from "@/components/landing-page/blogs";
+import SectionWithContactForm from "@/components/landing-page/Message";
+import Testimonials from "@/components/landing-page/testimonials";
+import Footer from "@/components/landing-page/Footer";
 
-import LandingButton from "../../components/LandingButton";
-import LandingCard from "../../components/LandingCard";
-import { useRouter } from "next/navigation";
+// Function to perform slow scrolling to a target element
+const slowScrollTo = (target: HTMLElement, duration: number) => {
+  const start = window.scrollY;
+  const end = target.offsetTop;
+  const distance = end - start;
+  let startTime: number | null = null;
 
-export default function Home() {
-  const router = useRouter();
-  const clickSignup = () => {
-    router.push("./signup");
+  // Function for smooth animation using requestAnimationFrame
+  const animateScroll = (timestamp: number) => {
+    if (!startTime) startTime = timestamp;
+    const timeElapsed = timestamp - startTime;
+    const progress = Math.min(timeElapsed / duration, 1); // Ensure progress doesn't exceed 1
+    window.scrollTo(0, start + distance * progress); // Scroll the page
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animateScroll); // Continue the animation
+    }
   };
 
-  const clickLogin = () => {
-    router.push("./login");
-  };
+  // Start the scroll animation
+  requestAnimationFrame(animateScroll);
+};
+
+const Page = () => {
+  useEffect(() => {
+    const links = document.querySelectorAll('a[href^="#"]');
+
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        // Get the target section ID from the clicked link
+        const targetId = link.getAttribute("href")?.slice(1); // Remove the '#' symbol
+
+        // Find the target element in the document
+        const targetElement = document.getElementById(targetId || "");
+
+        // If the element exists, perform the slow scroll
+        if (targetElement) {
+          slowScrollTo(targetElement, 1000); // 1000ms = 1 second for smooth scroll duration
+        }
+      });
+    });
+  }, []);
 
   return (
-    <main>
-      <div className="flex justify-between bg-[#270139] text-gray-300 h-[40px] items-center pl-10 pr-10">
-        <h1>populafyp@gmail.com</h1>
-        <h1>+923171100332 | +923365271144</h1>
+    <div>
+      {/* Navbar */}
+      <Navbar />
+      <Hero />
+
+      {/* Sections with unique IDs */}
+      <div id="services">
+        <Services />
       </div>
-      <div
-        style={{
-          backgroundImage: "url('./Landing.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="h-screen"
-      >
-        <div className="flex justify-between pl-10 pr-10 pt-6">
-          <div>
-            <img src="logowhite.svg" alt="" />
-          </div>
-          <div className="flex w-[40%] justify-between items-center">
-            <LandingButton text="Services" color="white" font="black" />
-            <LandingButton text="Pricing" color="white" font="black" />
-            <LandingButton text="About Us" color="white" font="black" />
-            <LandingButton text="Contact Us" color="white" font="black" />
-          </div>
 
-          <div className="flex w-[20%] items-center justify-between">
-            <div className=" cursor-pointer" onClick={clickLogin}>
-              <LandingButton text="Login" color="white" font="black" />
-            </div>
-            <div onClick={clickSignup} className=" cursor-pointer ">
-              <LandingButton text="Signup" color="black" font="white" />
-            </div>
-          </div>
-        </div>
+      <div id="satisfaction">
+        <Satisfaction />
       </div>
-      <div className="h-screen">
-        <div className="flex flex-col justify-center items-center gap-4 mb-24">
-          <h1 className="text-4xl font-bold text text-[#270139]">Services</h1>
 
-          <p className=" text-center">
-            POPULA makes lead generation, social media posts, and analytics easy
-            and smart. <br /> Boost your marketing and grow your business with
-            ease.
-          </p>
-
-          <div className="flex gap-10 items-center justify-center mt-6">
-            <LandingCard
-              url="leadmanagement.svg"
-              title="Lead Management"
-              description="Easily capture and manage leads with easy form creation"
-            />
-            <LandingCard
-              url="centralized.svg"
-              title="Centralized Posting"
-              description="Post across all platforms in one click from one place for maximum outreach and engagement."
-            />
-            <LandingCard
-              url="realtimeanalysis.svg"
-              title="Real-time Analysis"
-              description="Gain data insights for smarter decisions and business growth"
-            />
-          </div>
-        </div>
-        <div className="flex justify-center items-center gap-4 mt-6 mb-6 h-[400px]">
-          <div className="w-[30%] ]">
-            <h1 className="text-4xl font-bold text text-[#270139] mb-10">
-              Lead Management
-            </h1>
-            <p className=" text-justify">
-              Effortlessly capture, organize, and nurture leads with our
-              intuitive platform, empowering your business to thrive through
-              lead management and effective conversion strategies.
-            </p>
-          </div>
-          <div>
-            <img src="graph001.svg" alt="" className="h-[60%] w-[450px]" />
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center gap-4 mt-6 mb-6 h-[400px]">
-          <div>
-            <img src="graph002.svg" alt="" className="h-[60%] w-[450px]" />
-          </div>
-          <div className="w-[30%] ]">
-            <h1 className="text-4xl font-bold text text-[#270139] mb-10">
-              Centralized Posting
-            </h1>
-            <p className=" text-justify">
-              Simplify your social media strategy with our centralized posting
-              feature, allowing you to schedule and publish content across
-              multiple platforms from a single, user-friendly dashboard, saving
-              you time with pre-built templates and maximizing your online
-              presence.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center gap-4 mt-6 mb-6 h-[400px]">
-          <div className="w-[30%] ]">
-            <h1 className="text-4xl font-bold text text-[#270139] mb-10">
-              Real-Time Analytics
-            </h1>
-            <p className=" text-justify">
-              Gain valuable insights into your business with real-time
-              analytics, tracking leads, employee performance, social media
-              engagement, and website metrics, empowering you to make
-              data-driven decisions for optimal growth and success.
-            </p>
-          </div>
-          <div>
-            <img src="graph003.svg" alt="" className="h-[60%] w-[450px]" />
-          </div>
-        </div>
-
-        <div className="h-screen flex flex-col justify-center items-center gap-4 mt-6 border-b-2 border-black">
-          <h1 className="text-4xl font-bold text text-[#270139]">
-            Pricing Plans
-          </h1>
-          <p className="text-center">
-            Unlock the full potential of your business with our flexible and
-            affordable pricing plans tailored to meet your specific needs and
-            <br /> budget, ensuring you get the most value out of our
-            comprehensive suite of features and services.
-          </p>
-          <div className="flex gap-6 items-center justify-center mt-6">
-            <img
-              src="pricing01.svg"
-              alt=""
-              className=" cursor-pointer hover:translate-y-[-4px] transition-transform hover:scale-110 "
-            />
-            <img
-              src="pricing02.svg"
-              alt=""
-              className=" cursor-pointer hover:translate-y-[-4px] transition-transform hover:scale-110 "
-            />
-            <img
-              src="pricing03.svg"
-              alt=""
-              className=" cursor-pointer hover:translate-y-[-4px] transition-transform hover:scale-110 "
-            />
-          </div>
-        </div>
+      <div id="social-area">
+        <SocialArea />
       </div>
-    </main>
+
+      <div id="content">
+        <Content />
+      </div>
+
+      <div id="frame-insights">
+        <FrameInsights />
+      </div>
+
+      <div id="website">
+        <Website />
+      </div>
+
+      <div id="poster">
+        <Poster />
+      </div>
+
+      <div id="form-area">
+        <FormArea />
+      </div>
+
+      <div id="blogs">
+        <Blogs />
+      </div>
+
+      <div id="contact">
+        <SectionWithContactForm />
+      </div>
+
+      <div id="testimonials">
+        <Testimonials />
+      </div>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
-}
+};
+
+export default Page;

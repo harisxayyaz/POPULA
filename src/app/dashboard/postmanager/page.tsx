@@ -55,7 +55,11 @@ const PostManager = () => {
 
       <div className=" h-[350px] flex flex-col gap-4">
         <div className="flex justify-evenly gap-4 w-full font-bold px-28 ">
-          <PostModal />
+          {/* <PostModal /> */}
+          <button onClick={()=>{window.location.href = "/dashboard/postmanager/create-post"}} className="flex bg-white items-center justify-center w-[248px] h-[100px] rounded-xl drop-shadow-md hover:drop-shadow-lg hover:translate-y-[-4px] transition-transform cursor-pointer gap-4">
+            <Image src="/plusicon.svg" width={50} height={50} alt="eye" />
+            Create Post
+          </button>
           <Link
             href={"/dashboard/postmanager/allposts"}
             className="flex bg-white items-center justify-center w-[248px] h-[100px] rounded-xl drop-shadow-md hover:drop-shadow-lg hover:translate-y-[-4px] transition-transform cursor-pointer gap-4"

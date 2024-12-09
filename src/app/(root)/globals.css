@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* globals.css */
 @keyframes scroll {
   0% {
@@ -84,4 +83,195 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.embla {
+  position: relative;
+  width: 80%; /* Set the container width to 80% */
+  margin: 0 auto; /* Center the container */
+  margin-left: 11%;
+  overflow: hidden; /* Prevent overflow inside the carousel */
+}
+
+.embla__container {
+  display: flex;
+  gap: 10px; /* Reduced the gap between slides */
+}
+
+.embla__slide {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(
+    33.33% - 10px
+  ); /* Ensure cards fit without overflowing (3 items per row) */
+}
+
+@media (max-width: 1024px) {
+  .embla__slide {
+    width: calc(
+      50% - 10px
+    ); /* Adjust for tighter layout (2 items per row on medium screens) */
+  }
+}
+
+@media (max-width: 640px) {
+  .embla__slide {
+    width: 100%; /* Full width for one item per row on small screens */
+  }
+}
+
+/* Card Styling */
+.card {
+  padding: 16px; /* Reduced padding for a tighter card layout */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0; /* Ensuring no external margin to keep the cards close */
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.embla__dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: lightgray;
+  margin: 0 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.embla__dot--selected {
+  background: rgb(52, 8, 110);
+}
+
+.embla__dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: -10px;
+}
+
+#__next {
+  align-self: center;
+}
+
+.App {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+  border-radius: 50%;
+}
+
+.spinner {
+  color: #ffffff;
+  font-size: 22px;
+  text-indent: -99999px;
+  margin: 0px auto;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 2px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  content: "";
+}
+
+.spinner:before {
+  width: 10.4px;
+  height: 20.4px;
+  background: #0055de;
+  border-radius: 20.4px 0 0 20.4px;
+  top: -0.2px;
+  left: -0.2px;
+  -webkit-transform-origin: 10.4px 10.2px;
+  transform-origin: 10.4px 10.2px;
+  -webkit-animation: loading 2s infinite ease 1.5s;
+  animation: loading 2s infinite ease 1.5s;
+}
+
+.spinner:after {
+  width: 10.4px;
+  height: 10.2px;
+  background: #0055de;
+  border-radius: 0 10.2px 10.2px 0;
+  top: -0.1px;
+  left: 10.2px;
+  -webkit-transform-origin: 0px 10.2px;
+  transform-origin: 0px 10.2px;
+  -webkit-animation: loading 2s infinite ease;
+  animation: loading 2s infinite ease;
+}
+
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeInAnimation {
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  form,
+  #payment-status,
+  #dpm-annotation {
+    width: 80vw;
+    min-width: initial;
+  }
+}
+
+.custom-bullets {
+  list-style-type: none; /* Removes default bullets */
+  padding-left: 0;
+  /* Remove padding from left */
+}
+
+.custom-bullets li {
+  position: relative;
+  padding-left: 25px; /* Space for the custom bullet */
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.custom-bullets li::before {
+  content: url("/payment/check.svg"); /* Path to your SVG icon */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-left: -10px;
+  transform: translateY(-50%); /* Center the icon vertically */
 }

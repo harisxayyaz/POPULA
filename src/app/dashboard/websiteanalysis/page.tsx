@@ -6,10 +6,8 @@ import WebsiteAnalysis from "@/components/WebsiteAnalysis";
 const Websiteanalysis = () => {
 
   return (
-    //  <WebsiteAnalysis/>
     <div className="max-h-screen w-full overflow-y-scroll  p-4">
-      <WebsiteAnalysis/>
-      
+      <WebsiteAnalysis/>  
     </div>
   );
 };

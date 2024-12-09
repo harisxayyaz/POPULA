@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 import "./(root)/globals.css";
 import StoreProvider from "./(root)/StoreProvider";
 import NextTopLoader from "nextjs-toploader";
-
+import StripeWrapper from "@/components/StripeWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,10 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StoreProvider>
-        <body className={poppins.className}>
-          <NextTopLoader />
-          {children}
-        </body>
+        <StripeWrapper>
+          <body className={poppins.className}>
+            <NextTopLoader />
+            {children}
+          </body>
+        </StripeWrapper>
       </StoreProvider>
     </html>
   );
