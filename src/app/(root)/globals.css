@@ -275,3 +275,22 @@
   margin-left: -10px;
   transform: translateY(-50%); /* Center the icon vertically */
 }
+
+.skeleton-chart {
+  background-color: #f0f0f0;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
+  }
+}

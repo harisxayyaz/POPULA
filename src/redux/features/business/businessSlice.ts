@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { set } from "date-fns";
 
 const initialState: any = {
   token:"",
   captionRedux:"",
   hashtagsRedux:"",
+  businessId:"",
+  selectedPlan: "",
 };
 
 const businessSlice = createSlice({
@@ -19,13 +22,21 @@ const businessSlice = createSlice({
     setHashtagsRedux: (state, action: PayloadAction<any>) => {
       state.hashtagsRedux = action.payload;
     },
+    setBusinessId: (state, action: PayloadAction<any>) => {
+      state.businessId = action.payload;
+    },
+    setSelectedPlan: (state, action: PayloadAction<any>) => {
+      state.selectedPlan = action.payload
+    }
   },
 });
 
 export const {
   setToken,
   setCaptionRedux,
-  setHashtagsRedux
+  setHashtagsRedux,
+  setBusinessId,
+  setSelectedPlan
 } = businessSlice.actions;
 
 export default businessSlice.reducer;

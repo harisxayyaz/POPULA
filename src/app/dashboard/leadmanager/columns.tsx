@@ -3,6 +3,8 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import LeadDialog from "./_components/LeadDialog";
+import LeadDetailsDialog from "./_components/LeadDetailsDialog";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -31,20 +33,7 @@ export const columns: ColumnDef<Lead>[] = [
       );
     },
   },
-  {
-    accessorKey: "company",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Company
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
+
   {
     accessorKey: "phone",
     header: ({ column }) => {
@@ -96,12 +85,11 @@ export const columns: ColumnDef<Lead>[] = [
     header: "Actions",
     cell: ({ row }) => (
       <div className="flex space-x-2">
-        <Button variant="outline" onClick={() => handleView(row.original)}>
-          <FontAwesomeIcon icon={faEye} />
-        </Button>
-        <Button variant="outline" onClick={() => handleEdit(row.original)}>
-          <FontAwesomeIcon icon={faEdit} />
-        </Button>
+        <LeadDetailsDialog lead={row.original} />
+        <LeadDialog
+          lead={row.original}
+          onSave={(updatedLead) => console.log("Saved Lead:", updatedLead)}
+        />
         <Button variant="outline" onClick={() => handleDelete(row.original)}>
           <FontAwesomeIcon icon={faTrash} />
         </Button>

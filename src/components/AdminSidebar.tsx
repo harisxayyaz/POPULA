@@ -21,32 +21,29 @@ const AdminSidebar: React.FC = () => {
 
   const functions = [
     { name: "Dashboard", path: "/admin", icon: faTachometerAlt },
-    { name: "Post Manager", path: "/admin/postmanager", icon: faNewspaper },
-    { name: "Lead Manager", path: "/admin/leadmanager", icon: faUserTie },
+    { name: "Manage Businesses", path: "/admin/manage-business", icon: faNewspaper },
+    { name: "Analytics", path: "/admin/leadmanager", icon: faUserTie },
     {
-      name: "Business Manager",
-      path: "/admin/profilemanagement",
+      name: "Revenue",
+      path: "/admin/revenue",
       icon: faUser,
     },
     {
-      name: "Analytics",
-      path: "/admin/businessprofile",
+      name: "Social Media",
+      path: "/admin/socialmedia",
       icon: faBuilding,
     },
     {
-      name: "Manage Admins",
-      path: "/admin/websiteanalysis",
+      name: "Manage Subscriptions",
+      path: "/admin/manage-subscriptions",
       icon: faChartBar,
     },
     {
-      name: "Revenue",
-      path: "/admin/formgenerator",
+      name: "Blogs",
+      path: "/admin/blogs",
       icon: faClipboardList,
     },
-    { name: "Social Media", path: "/admin/socialmedia", icon: faWrench },
-    { name: "Manage Subscriptions", path: "/admin/team", icon: faUsers },
-    { name: "Blogs", path: "/admin/settings", icon: faCog },
-    { name: "Settings", path: "/admin/settings", icon: faCog },
+    { name: "Manage Admins", path: "/admin/manage-admins", icon: faWrench },
   ];
 
   const handleClick = (path: string, index: number) => {
@@ -72,7 +69,7 @@ const AdminSidebar: React.FC = () => {
                 className="w-[15px] h-[15px] mr-5 text-[#0F8595]"
               />
               <li
-                className={`text-[#A5D1D7] ${
+                className={`text-[#5ea4ad] ${
                   selectedItem === index ? "text-[#063E45]" : ""
                 }`}
               >

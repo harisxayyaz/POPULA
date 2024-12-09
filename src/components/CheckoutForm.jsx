@@ -1,16 +1,80 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useAppSelector } from "@/redux/store/hooks";
 
 export default function CheckoutForm({ dpmCheckerLink }) {
   const stripe = useStripe();
   const elements = useElements();
-
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [formData, setFormData] = React.useState(null);
+
+  useEffect(() => {
+    const fetchBusiness = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          "http://localhost:5000/api/business/my-business",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFormData(data); // Set the business data into formData state
+          console.log("Business data fetched successfully:", data);
+        } else {
+          console.error("Failed to fetch business data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching business data:", error);
+      }
+    };
+    fetchBusiness();
+  }, []); // Empty dependency array to fetch only on mount
+
+  const { selectedPlan } = useAppSelector((state) => state.business);
+  const token = localStorage.getItem("token");
+
+  const updateBusinessSubscription = async () => {
+    if (!formData) return; // Ensure formData is available
+
+    const businessId = formData._id; // Extract businessId from formData
+
+    console.log("Updating business subscription");
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/business/${businessId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            subscription: selectedPlan, // Send the selectedPlan to update the subscription
+          }),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Business subscription updated successfully");
+      } else {
+        console.error("Error updating subscription");
+      }
+    } catch (error) {
+      console.error("Failed to update business subscription", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +84,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     }
 
     setIsLoading(true);
-
+    updateBusinessSubscription(); // Call to update subscription
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -46,7 +110,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
       <form
         id="payment-form"
         onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center  w-full max-w-lg mx-auto  rounded-lg "
+        className="flex flex-col justify-center items-center w-full max-w-lg mx-auto rounded-lg"
       >
         <PaymentElement
           id="payment-element"
@@ -71,8 +135,6 @@ export default function CheckoutForm({ dpmCheckerLink }) {
           </div>
         )}
       </form>
-
-      
     </>
   );
 }

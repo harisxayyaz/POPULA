@@ -4,15 +4,20 @@ interface DynamicCardProps {
   description: string;
   imagePath: string;
   listItems: string[];
+  onClick?: () => void; // Add an onClick prop
 }
 
 const DynamicCard: React.FC<DynamicCardProps> = ({
   description,
   imagePath,
   listItems,
+  onClick,
 }) => {
   return (
-    <div className="h-56 cursor-pointer active:border active:border-black flex w-[70%] rounded-lg bg-white overflow-hidden">
+    <div
+      className="h-56 cursor-pointer active:border active:border-black flex w-[70%] rounded-lg bg-white overflow-hidden"
+      onClick={onClick} // Trigger the click handler
+    >
       <div className="h-full">
         <Image
           src={imagePath}

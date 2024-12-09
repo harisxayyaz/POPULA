@@ -39,8 +39,8 @@ const Sidebar: React.FC = () => {
       icon: faChartBar,
     },
     {
-      name: "Form Generator",
-      path: "/dashboard/formgenerator",
+      name: "Subscriptions",
+      path: "/payment",
       icon: faClipboardList,
     },
     { name: "Templates", path: "/dashboard/template", icon: faWrench },

@@ -9,18 +9,27 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 // Calculate the order amount (in cents)
 const calculateOrderAmount = (items: any[]) => {
-  // Replace this constant with a calculation of the order's amount
-  return 700; // Example static amount (e.g., 14.00 EUR)
+  return 70000; // Example static amount (e.g., 70000 cents)
 };
 
 // Handle POST requests to create a payment intent
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json(); // Parse incoming JSON body
+    const { items, selectedPlan } = await req.json(); // Extract selectedPlan and items from the request body
+    console.log("Selected Plan:", selectedPlan); // Print selectedPlan to verify it's received
+    
+    let amount = 0;
+    if (selectedPlan === "basic") {
+      amount = 10000;
+    } else if (selectedPlan === "business") {
+      amount = 20000;
+    } else {
+      amount = 50000;
+    }
 
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
+      amount: amount,
       currency: "usd",
       automatic_payment_methods: {
         enabled: true,
