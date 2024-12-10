@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 
 const Form: React.FC = () => {
@@ -39,7 +38,7 @@ const Form: React.FC = () => {
            window.location.href =
           "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         const response = await fetch(
-          "https://b1d0-115-186-187-90.ngrok-free.app/api/lead/leadManual",
+          "http://localhost:5000/api/lead/leadManual",
           {
             method: "POST",
             headers: {

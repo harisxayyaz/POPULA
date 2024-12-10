@@ -7,11 +7,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"; // Import the shadcn Select components
 import { useState } from "react";
 import { Alert } from "@/components/ui/alert";
 import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 type Lead = {
   id: string;
@@ -72,7 +78,6 @@ const LeadDialog: React.FC<LeadDialogProps> = ({ lead, onSave }) => {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-      
     } catch (err) {
       setError("An error occurred while updating the lead");
     } finally {
@@ -128,6 +133,23 @@ const LeadDialog: React.FC<LeadDialogProps> = ({ lead, onSave }) => {
               onChange={(e) => handleChange("country", e.target.value)}
               className="w-full border rounded px-2 py-1"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Status</label>
+            <Select
+              value={formData.status}
+              onValueChange={(value) => handleChange("status", value)}
+            >
+              <SelectTrigger className="w-full border rounded px-2 py-1">
+                <SelectValue placeholder="Select Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="processing">Processing</SelectItem>
+                <SelectItem value="success">Success</SelectItem>
+                <SelectItem value="failed">Failed</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <DialogFooter>

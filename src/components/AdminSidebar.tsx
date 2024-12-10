@@ -21,13 +21,13 @@ const AdminSidebar: React.FC = () => {
 
   const functions = [
     { name: "Dashboard", path: "/admin", icon: faTachometerAlt },
-    { name: "Manage Businesses", path: "/admin/manage-business", icon: faNewspaper },
-    { name: "Analytics", path: "/admin/leadmanager", icon: faUserTie },
     {
-      name: "Revenue",
-      path: "/admin/revenue",
-      icon: faUser,
+      name: "Manage Businesses",
+      path: "/admin/manage-business",
+      icon: faNewspaper,
     },
+    { name: "Analytics & Revenue", path: "/admin/revenue", icon: faUserTie },
+
     {
       name: "Social Media",
       path: "/admin/socialmedia",
@@ -38,12 +38,6 @@ const AdminSidebar: React.FC = () => {
       path: "/admin/manage-subscriptions",
       icon: faChartBar,
     },
-    {
-      name: "Blogs",
-      path: "/admin/blogs",
-      icon: faClipboardList,
-    },
-    { name: "Manage Admins", path: "/admin/manage-admins", icon: faWrench },
   ];
 
   const handleClick = (path: string, index: number) => {

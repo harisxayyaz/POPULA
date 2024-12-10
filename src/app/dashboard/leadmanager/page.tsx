@@ -63,26 +63,11 @@ export default function LeadManager() {
     loadLeads();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="max-h-screen w-full overflow-y-scroll p-4">
-        Loading...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-h-screen w-full overflow-y-scroll p-4">
-        Error: {error}
-      </div>
-    );
-  }
-
   return (
     <div className="max-h-screen w-full overflow-y-scroll p-4">
       <Navbar title="Lead Manager" description="Lead Management" />
-      <DataTable columns={columns} data={leads} />
+      {/* Pass the loading state to DataTable */}
+      <DataTable columns={columns} data={leads} isLoading={loading} />
     </div>
   );
 }

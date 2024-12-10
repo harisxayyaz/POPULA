@@ -1,4 +1,3 @@
-import { log } from "console";
 import React, { useRef, useEffect, useState } from "react";
 
 type Post = {
@@ -20,6 +19,7 @@ type Post = {
 const HorizontalScrollPosts: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<Post[]>([]); // State for storing posts
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
     // Fetch posts from the API when the component mounts
@@ -30,9 +30,11 @@ const HorizontalScrollPosts: React.FC = () => {
         );
         const data = await response.json();
         setPosts(data.data); // Update state with the fetched posts
+        setLoading(false); // Set loading to false once data is fetched
         console.log(data.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
+        setLoading(false); // Set loading to false even if error occurs
       }
     };
 
@@ -86,7 +88,7 @@ const HorizontalScrollPosts: React.FC = () => {
         {/* Display image if available */}
         {post.attachments?.data[0]?.media?.image?.src && (
           <div className="bg-white p-4 rounded-xl">
-            <p className=" text-center">
+            <p className="text-center">
               Created Time: <br />
               {post.created_time}
             </p>
@@ -101,14 +103,27 @@ const HorizontalScrollPosts: React.FC = () => {
     ));
   }
 
+  // Skeleton loader for 5 to 6 cards
+  function skeletonLoader() {
+    return Array.from({ length: 3 }, (_, index) => (
+      <div
+        key={index}
+        className="w-[30%] h-[200px] bg-gray-200 animate-pulse rounded-xl"
+      ></div>
+    ));
+  }
+
   return (
     <div
       ref={scrollRef}
-      className="overflow-hidden p-10  whitespace-nowrap w-full"
+      className="overflow-hidden p-10 whitespace-nowrap w-full"
     >
       <div className="flex scroll-animation gap-6 p-10">
-        {/* Display fetched posts */}
-        {displayFeed(posts, "facebook")}
+        {/* Show skeleton loader when loading is true */}
+        {loading
+          ? skeletonLoader()
+          : // Display fetched posts
+            displayFeed(posts, "facebook")}
       </div>
     </div>
   );

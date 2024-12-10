@@ -37,11 +37,13 @@ const filterFields = [
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isLoading: boolean; // New loading state prop
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -52,8 +54,6 @@ export function DataTable<TData, TValue>({
   const [selectedField, setSelectedField] = React.useState<string>("email");
   const [filterValue, setFilterValue] = React.useState<string>("");
 
-  console.log("Data",data);
-  
   const table = useReactTable({
     data,
     columns,
@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
 
-        <Modal/>
+        <Modal />
       </div>
 
       {/* Fixed Table Layout */}
@@ -107,23 +107,31 @@ export function DataTable<TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} style={{ width: "150px" }}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} style={{ width: "150px" }}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              // Skeleton loader for table rows
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center animate-pulse bg-gray-200"
+                >
+                  <div className="h-4 bg-gray-300 rounded w-1/4 mx-auto"></div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}

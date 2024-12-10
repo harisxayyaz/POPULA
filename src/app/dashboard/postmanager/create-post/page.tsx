@@ -16,7 +16,8 @@ const CreatePost = (props: Props) => {
   const [success, setSuccess] = useState<boolean>(false); // State for success
   const [error, setError] = useState<string | null>(null); // State for error message
   const [descriptionText, setDescriptionText] = useState<string>(""); // New state for description below "Use Description" button
-  const [toggle, setToggle] = useState<boolean>(false); // State for toggling between caption and description
+
+  const [useApnaModel, setUseApnaModel] = useState(true); // Track toggle state
   const router = useRouter();
 
   const handleCaptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,34 +59,34 @@ const CreatePost = (props: Props) => {
   };
 
   const generateCaptionApnaModel = async () => {
-     if (caption) {
-       try {
-         setLoading(true);
-         const response = await fetch(
-           "http://192.168.18.94:4000/generate-caption",
-           {
-             method: "POST",
-             headers: {
-               "Content-Type": "application/json",
-             },
-             body: JSON.stringify({
-               "Product Description": caption,
-             }),
-           }
-         );
-         if (!response.ok) {
-           throw new Error("Failed to generate ad content");
-         }
-         const data = await response.json();
-         setCaption(data.ad_caption); // Update caption with AI-generated content
-       } catch (error) {
-         console.error("Error generating ad content:", error);
-         setError("Failed to generate ad content. Please try again.");
-       } finally {
-         setLoading(false);
-       }
-     }
-  }
+    if (caption) {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "http://192.168.18.94:4000/generate-caption",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "Product Description": caption,
+            }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to generate ad content");
+        }
+        const data = await response.json();
+        setCaption(data.ad_caption); // Update caption with AI-generated content
+      } catch (error) {
+        console.error("Error generating ad content:", error);
+        setError("Failed to generate ad content. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   const handleMediaUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -112,9 +113,9 @@ const CreatePost = (props: Props) => {
     }
   };
 
-const copyDescription = () => {
+  const copyDescription = () => {
     setDescriptionText(caption); // Copy the caption to the description
-}
+  };
 
   const generateWithAI = async () => {
     const brandName = "POPULA"; // Hardcoded brand name
@@ -166,19 +167,19 @@ const copyDescription = () => {
     }
   };
 
-    const [checkboxStates, setCheckboxStates] = useState<{
-      [key: string]: boolean;
-    }>({
-      Facebook: false,
-      Instagram: false,
-    });
+  const [checkboxStates, setCheckboxStates] = useState<{
+    [key: string]: boolean;
+  }>({
+    Facebook: false,
+    Instagram: false,
+  });
 
-    const toggleCheckboxState = (key: string, newState: boolean) => {
-      setCheckboxStates((prevState) => ({
-        ...prevState,
-        [key]: newState,
-      }));
-    };
+  const toggleCheckboxState = (key: string, newState: boolean) => {
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [key]: newState,
+    }));
+  };
 
   const postToFacebookAndInstagram = async (
     facebook: boolean,
@@ -273,7 +274,6 @@ const copyDescription = () => {
     }
   };
 
-
   return (
     <div className="max-h-screen w-full overflow-hidden p-4">
       <Navbar title="Social Sphere" description="Create Post" />
@@ -316,11 +316,25 @@ const copyDescription = () => {
             />
             <div className="flex gap-4">
               <Button
-                className="bg-[#2A327D] w-36"
-                disabled={!caption} // Disable button if no caption
-                onClick={() => generateCaptionApnaModel()} // Trigger AI generation
+                className="bg-[#2A327D] w-44"
+                disabled={!caption || loading} // Disable button if no caption or loading
+                onClick={
+                  useApnaModel ? generateCaptionApnaModel : generateCaption
+                }
               >
-                {loading ? "Generating..." : "Let AI do the job"}
+                {loading
+                  ? "Generating..."
+                  : useApnaModel
+                  ? "Let AI do the job (Apna)"
+                  : "Let AI do the job"}
+              </Button>
+              <Button
+                className="bg-gray-500 w-36"
+                onClick={() => setUseApnaModel(!useApnaModel)} // Toggle the model
+              >
+                {useApnaModel
+                  ? "Switch"
+                  : "Switch"}
               </Button>
             </div>
           </div>
@@ -383,7 +397,12 @@ const copyDescription = () => {
           <div className="w-full flex justify-center">
             <Button
               className="bg-[#2A327D]"
-              onClick={()=>{postToFacebookAndInstagram(checkboxStates["Facebook"], checkboxStates["Instagram"])}}
+              onClick={() => {
+                postToFacebookAndInstagram(
+                  checkboxStates["Facebook"],
+                  checkboxStates["Instagram"]
+                );
+              }}
               disabled={loading} // Disable button while posting
             >
               {loading ? <span>Loading...</span> : "Done"}
