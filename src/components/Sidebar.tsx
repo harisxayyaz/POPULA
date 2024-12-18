@@ -43,9 +43,9 @@ const Sidebar: React.FC = () => {
       path: "/payment",
       icon: faClipboardList,
     },
-    { name: "Templates", path: "/dashboard/template", icon: faWrench },
-    { name: "Team", path: "/dashboard/team", icon: faUsers },
-    { name: "Settings", path: "/dashboard/settings", icon: faCog },
+    // { name: "Templates", path: "/dashboard/template", icon: faWrench },
+    // { name: "Team", path: "/dashboard/team", icon: faUsers },
+    // { name: "Settings", path: "/dashboard/settings", icon: faCog },
   ];
 
   const handleClick = (path: string, index: number) => {

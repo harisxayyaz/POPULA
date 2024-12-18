@@ -275,7 +275,7 @@ const CreatePost = (props: Props) => {
   };
 
   return (
-    <div className="max-h-screen w-full overflow-hidden p-4">
+    <div className="max-h-screen w-full overflow-scroll p-4">
       <Navbar title="Social Sphere" description="Create Post" />
       <section className="flex w-full h-full">
         {/* Scrollable Post Section */}

@@ -5,6 +5,7 @@ interface GenericCardProps {
   imagePath: string;
   title: string;
   version: string;
+  isToggled: boolean; // Prop to indicate toggle state
   onToggle?: () => void; // Optional handler for the toggle button
 }
 
@@ -12,12 +13,14 @@ const SocialMediaCard: React.FC<GenericCardProps> = ({
   imagePath,
   title,
   version,
+  isToggled,
+  onToggle,
 }) => {
   return (
     <div className="flex flex-col w-[300px] h-[300px] border-2 border-[#e9eaeb] bg-white rounded-lg p-4">
       {/* Toggle Button Section */}
       <div className="flex justify-end">
-        <ToggleSwitch/>
+        <ToggleSwitch isChecked={isToggled} onChange={onToggle || (() => {})} />
       </div>
 
       {/* Content Section */}
