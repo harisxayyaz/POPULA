@@ -10,9 +10,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 
 // Stripe requires the raw body to construct the event.
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge"; // Replaces the deprecated `config` export
+
 
 // Setup CORS
 const cors = Cors({

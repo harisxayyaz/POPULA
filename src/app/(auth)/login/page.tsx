@@ -6,9 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Unna } from "next/font/google";
 import { useAppSelector } from "@/redux/store/hooks";
 import { useAppDispatch } from "@/redux/store/hooks";
-import {
-  setToken
-} from "@/redux/features/business/businessSlice";
+import { setToken } from "@/redux/features/business/businessSlice";
 import Sidebar from "../_components/Sidebar";
 
 const unna = Unna({
@@ -18,26 +16,22 @@ const unna = Unna({
 
 const Login = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();  
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-    useEffect(() => {
-      // Get the token from query params
-       const token = searchParams.get("token");
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search); // Avoid useSearchParams directly
+    const token = searchParams.get("token");
 
-      if (token) {
-        // Save token to localStorage or cookies for future use
-        localStorage.setItem("token", token );
-        // Redirect to the actual dashboard page (or perform other actions)
-        router.push("/dashboard");
-      } else {
-        // If no token, redirect to login
-        router.push("/login");
-      }
-    }, [router]);
+    if (token) {
+      localStorage.setItem("token", token);
+      router.push("/dashboard");
+    } else {
+      router.push("/login");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +51,7 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         setError("");
         setTimeout(() => {
-          router.push("/dashboard"); // Redirect to the dashboard or desired page
+          router.push("/dashboard");
         }, 1000);
       } else {
         setError(data.message);
@@ -69,7 +63,6 @@ const Login = () => {
 
   return (
     <main className="flex flex-col md:flex-row w-screen h-screen">
-      
       <section className="md:w-full md:h-full p-6 flex flex-col">
         <div className="flex flex-col justify-center md:h-full h-[80vh]">
           <div className="flex justify-center mb-6">
@@ -78,7 +71,6 @@ const Login = () => {
               <div className={`${unna.className} `}>
                 <h1 className="text-4xl font-bold">Welcome Back!</h1>
               </div>
-
               <div className="relative">
                 <input
                   type="email"
@@ -103,9 +95,7 @@ const Login = () => {
                   Password
                 </label>
               </div>
-
               {error && <p className="text-red-500">{error}</p>}
-
               <div className="relative">
                 <button
                   className="w-full h-10 bg-red-500 text-white rounded-md hover:bg-red-700"
@@ -118,14 +108,18 @@ const Login = () => {
                 <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
                   <Link href="/signup">Don't have an account? Sign up</Link>
                 </p>
-
                 <p className="text-blue-500 cursor-pointer md:text-sm hover:text-blue-800 ">
                   <Link href="/forgotpassword">Forgot Password?</Link>
                 </p>
               </div>
             </form>
           </div>
-          <div onClick={() => {window.location.href = "http://localhost:5000/auth/google"}} className="flex items-center justify-center cursor-pointer">
+          <div
+            onClick={() => {
+              window.location.href = "http://localhost:5000/auth/google";
+            }}
+            className="flex items-center justify-center cursor-pointer"
+          >
             <h1 className="text-center text-sm mr-1">or sign in using</h1>
             <img src="google.svg" alt="google" className="h-5 w-5" />
           </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Unna } from "next/font/google";
 import { useAppSelector } from "@/redux/store/hooks";
 import { useAppDispatch } from "@/redux/store/hooks";
@@ -16,7 +16,6 @@ const unna = Unna({
 
 const Login = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
