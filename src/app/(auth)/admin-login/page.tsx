@@ -26,7 +26,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/user/adminLogin",
+        "https://popula-backend-efc1.onrender.com/api/user/adminLogin",
         {
           method: "POST",
           headers: {

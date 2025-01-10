@@ -23,7 +23,7 @@ const ForgotPassword: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/user/forgot-password",
+        "https://popula-backend-efc1.onrender.com/api/user/forgot-password",
         {
           method: "POST",
           headers: {

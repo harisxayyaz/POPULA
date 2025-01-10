@@ -50,7 +50,7 @@ const Dashboard = () => {
       console.log("here");
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/business/my-business",
+        "https://popula-backend-efc1.onrender.com/api/business/my-business",
         {
           method: "GET",
           headers: {
@@ -77,7 +77,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/lead",
+        "https://popula-backend-efc1.onrender.com/api/lead",
         {
           method: "GET",
           headers: {

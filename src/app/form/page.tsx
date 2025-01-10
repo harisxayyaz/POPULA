@@ -38,7 +38,7 @@ const Form: React.FC = () => {
         window.location.href =
           "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         const response = await fetch(
-          "http://popula-backend-efc1.onrender.com/api/lead/leadManual",
+          "https://popula-backend-efc1.onrender.com/api/lead/leadManual",
           {
             method: "POST",
             headers: {

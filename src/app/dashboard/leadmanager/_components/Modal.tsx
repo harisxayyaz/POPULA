@@ -28,7 +28,7 @@ const Modal = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/lead",
+        "https://popula-backend-efc1.onrender.com/api/lead",
         {
           method: "POST",
           headers: {

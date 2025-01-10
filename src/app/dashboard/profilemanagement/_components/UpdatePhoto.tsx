@@ -38,7 +38,7 @@ const UpdatePhoto: React.FC = () => {
         try {
           const token = localStorage.getItem("token"); // Retrieve token from localStorage
           const response = await fetch(
-            "http://popula-backend-efc1.onrender.com/api/user/update-photo",
+            "https://popula-backend-efc1.onrender.com/api/user/update-photo",
             {
               method: "POST",
               headers: {

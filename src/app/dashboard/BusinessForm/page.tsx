@@ -47,7 +47,7 @@ const BusinessForm = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/business",
+        "https://popula-backend-efc1.onrender.com/api/business",
         {
           method: "POST",
           headers: {

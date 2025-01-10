@@ -94,7 +94,7 @@ const LeadActions = ({ lead }: { lead: Lead }) => {
     try {
       // Send DELETE request to the API with the lead ID
       const response = await fetch(
-        `http://popula-backend-efc1.onrender.com/api/lead/leads/${lead.id}`,
+        `https://popula-backend-efc1.onrender.com/api/lead/leads/${lead.id}`,
         {
           method: "DELETE",
           headers: {

@@ -20,7 +20,7 @@ const ProfileManagement = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://popula-backend-efc1.onrender.com/api/user/me",
+          "https://popula-backend-efc1.onrender.com/api/user/me",
           {
             method: "GET",
             headers: {
@@ -72,7 +72,7 @@ const ProfileManagement = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/user/profile",
+        "https://popula-backend-efc1.onrender.com/api/user/profile",
         fetchOptions
       ); // Replace with your API endpoint
 

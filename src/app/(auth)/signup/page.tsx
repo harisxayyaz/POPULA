@@ -58,7 +58,7 @@ const Signup = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/user/signup",
+        "https://popula-backend-efc1.onrender.com/api/user/signup",
         {
           method: "POST",
           headers: {

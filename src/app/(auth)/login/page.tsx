@@ -38,7 +38,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://popula-backend-efc1.onrender.com/api/user/login",
+        "https://popula-backend-efc1.onrender.com/api/user/login",
         {
           method: "POST",
           headers: {
@@ -120,7 +120,7 @@ const Login = () => {
           <div
             onClick={() => {
               window.location.href =
-                "http://popula-backend-efc1.onrender.com/auth/google";
+                "https://popula-backend-efc1.onrender.com/auth/google";
             }}
             className="flex items-center justify-center cursor-pointer"
           >

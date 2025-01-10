@@ -50,7 +50,7 @@ const LeadDialog: React.FC<LeadDialogProps> = ({ lead, onSave }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://popula-backend-efc1.onrender.com/api/lead/update/${formData.id}`,
+        `https://popula-backend-efc1.onrender.com/api/lead/update/${formData.id}`,
         {
           method: "PUT",
           headers: {

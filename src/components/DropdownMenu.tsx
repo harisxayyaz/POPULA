@@ -20,7 +20,7 @@ const DropdownMenuComponent = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://popula-backend-efc1.onrender.com/api/user/me",
+          "https://popula-backend-efc1.onrender.com/api/user/me",
           {
             method: "GET",
             headers: {

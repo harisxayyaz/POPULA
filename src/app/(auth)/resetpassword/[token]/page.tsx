@@ -29,7 +29,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
 
     try {
       const response = await fetch(
-        `http://popula-backend-efc1.onrender.com/api/user/reset-password/${params.token}`,
+        `https://popula-backend-efc1.onrender.com/api/user/reset-password/${params.token}`,
         {
           method: "POST",
           headers: {
