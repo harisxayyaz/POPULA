@@ -31,9 +31,12 @@ const ManageBusiness = (props: Props) => {
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/business/all", {
-          method: "GET",
-        });
+        const response = await fetch(
+          "http://popula-backend-efc1.onrender.com/api/business/all",
+          {
+            method: "GET",
+          }
+        );
         const data = await response.json();
         setBusinesses(data);
       } catch (error) {
@@ -72,7 +75,7 @@ const ManageBusiness = (props: Props) => {
       // Send API request to update the business status
       try {
         const response = await fetch(
-          `http://localhost:5000/api/business/${editingBusiness._id}`, // Use the business ID here
+          `http://popula-backend-efc1.onrender.com/api/business/${editingBusiness._id}`, // Use the business ID here
           {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -107,7 +110,7 @@ const ManageBusiness = (props: Props) => {
     if (businessToDelete) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/business/${businessToDelete._id}`,
+          `http://popula-backend-efc1.onrender.com/api/business/${businessToDelete._id}`,
           {
             method: "DELETE",
           }

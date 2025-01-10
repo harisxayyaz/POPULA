@@ -78,14 +78,17 @@ const BusinessConfiguration = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/business", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/business",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         const errorResponse = await response.json();

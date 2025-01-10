@@ -23,7 +23,7 @@ const ForgotPassword: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/user/forgot-password",
+        "http://popula-backend-efc1.onrender.com/api/user/forgot-password",
         {
           method: "POST",
           headers: {
@@ -35,7 +35,9 @@ const ForgotPassword: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("A password reset link has been sent to your email! Check your inbox"); // Success message
+        setMessage(
+          "A password reset link has been sent to your email! Check your inbox"
+        ); // Success message
         setError(null); // Clear any previous errors
         setFormSubmitted(true); // Mark the form as submitted to hide it
         setEmail(""); // Clear the email input field

@@ -38,7 +38,7 @@ const UpdatePhoto: React.FC = () => {
         try {
           const token = localStorage.getItem("token"); // Retrieve token from localStorage
           const response = await fetch(
-            "http://localhost:5000/api/user/update-photo",
+            "http://popula-backend-efc1.onrender.com/api/user/update-photo",
             {
               method: "POST",
               headers: {
@@ -53,9 +53,9 @@ const UpdatePhoto: React.FC = () => {
 
           if (response.ok) {
             console.log("Photo URL updated in backend successfully");
-            setTimeout(()=>{
-             window.location.reload();
-            },1000)
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             console.error("Error updating photo URL in backend");
           }

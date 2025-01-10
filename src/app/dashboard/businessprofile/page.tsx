@@ -31,7 +31,7 @@ const BusinessProfile: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://localhost:5000/api/business/my-business",
+          "http://popula-backend-efc1.onrender.com/api/business/my-business",
           {
             method: "GET",
             headers: {
@@ -67,7 +67,7 @@ const BusinessProfile: React.FC = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/api/business/66f7fdcbdf10fd79bf5c094c",
+          "http://popula-backend-efc1.onrender.com/api/business/66f7fdcbdf10fd79bf5c094c",
           {
             method: "PATCH",
             headers: {

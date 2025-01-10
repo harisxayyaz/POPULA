@@ -37,13 +37,16 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -116,7 +119,8 @@ const Login = () => {
           </div>
           <div
             onClick={() => {
-              window.location.href = "http://localhost:5000/auth/google";
+              window.location.href =
+                "http://popula-backend-efc1.onrender.com/auth/google";
             }}
             className="flex items-center justify-center cursor-pointer"
           >

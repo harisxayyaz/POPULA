@@ -18,7 +18,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://localhost:5000/api/business/my-business",
+          "http://popula-backend-efc1.onrender.com/api/business/my-business",
           {
             method: "GET",
             headers: {
@@ -53,7 +53,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/business/${businessId}`,
+        `http://popula-backend-efc1.onrender.com/api/business/${businessId}`,
         {
           method: "PATCH",
           headers: {

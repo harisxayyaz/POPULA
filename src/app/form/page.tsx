@@ -35,10 +35,10 @@ const Form: React.FC = () => {
       const data = { email, phoneNumber: phone };
 
       try {
-           window.location.href =
+        window.location.href =
           "https://www.bata.com.pk/?srsltid=AfmBOorfxbz95TEWdKLDa3Ec0gyv2RRfGRJtRKAf6Cj42OqkZ851ZvGV";
         const response = await fetch(
-          "http://localhost:5000/api/lead/leadManual",
+          "http://popula-backend-efc1.onrender.com/api/lead/leadManual",
           {
             method: "POST",
             headers: {
@@ -49,7 +49,6 @@ const Form: React.FC = () => {
         );
         if (response.ok) {
           console.log("submitted successfully");
-          
         } else {
           console.error("Failed to submit form data", response.statusText);
         }
@@ -61,7 +60,13 @@ const Form: React.FC = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br ">
-      <img src="/bata.jpeg" width={10} height={10} alt="bg" className="absolute h-screen w-screen z-30"/>
+      <img
+        src="/bata.jpeg"
+        width={10}
+        height={10}
+        alt="bg"
+        className="absolute h-screen w-screen z-30"
+      />
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg z-50">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Get in Touch

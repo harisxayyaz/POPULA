@@ -19,13 +19,16 @@ const ProfileManagement = () => {
     const fetchPhoto = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/user/me", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://popula-backend-efc1.onrender.com/api/user/me",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -55,33 +58,33 @@ const ProfileManagement = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault(); // Prevent form from refreshing the page
     console.log(formData); // Log form data to the console
-     const token = localStorage.getItem("token"); // Replace 'your_token_key' with the actual key you used to store the token.
+    const token = localStorage.getItem("token"); // Replace 'your_token_key' with the actual key you used to store the token.
 
-     // Set up the fetch options
-     const fetchOptions = {
-       method: "PUT",
-       headers: {
-         "Content-Type": "application/json", // Assuming you're sending JSON data
-         Authorization: `Bearer ${token}`, // Add your authorization token here
-       },
-       body: JSON.stringify(formData), // Convert form data to JSON
-     };
+    // Set up the fetch options
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json", // Assuming you're sending JSON data
+        Authorization: `Bearer ${token}`, // Add your authorization token here
+      },
+      body: JSON.stringify(formData), // Convert form data to JSON
+    };
 
-     try {
-       const response = await fetch(
-         "http://localhost:5000/api/user/profile",
-         fetchOptions
-       ); // Replace with your API endpoint
+    try {
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/user/profile",
+        fetchOptions
+      ); // Replace with your API endpoint
 
-       if (!response.ok) {
-         throw new Error(`Error: ${response.status} - ${response.statusText}`);
-       }
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
 
-       const result = await response.json(); // Parse the response JSON
-       console.log("Success:", result); // Handle the response
-     } catch (error) {
-       console.error("Error occurred while submitting form data:", error);
-     }
+      const result = await response.json(); // Parse the response JSON
+      console.log("Success:", result); // Handle the response
+    } catch (error) {
+      console.error("Error occurred while submitting form data:", error);
+    }
   };
 
   return (

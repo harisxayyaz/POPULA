@@ -50,7 +50,7 @@ const Dashboard = () => {
       console.log("here");
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:5000/api/business/my-business",
+        "http://popula-backend-efc1.onrender.com/api/business/my-business",
         {
           method: "GET",
           headers: {
@@ -76,13 +76,16 @@ const Dashboard = () => {
   const fetchLeads = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/lead", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/lead",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch leads");
@@ -115,7 +118,6 @@ const Dashboard = () => {
         const data = await fetchLeads();
         setLeads(data);
         console.log("leads", data);
-        
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");
       } finally {

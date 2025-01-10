@@ -27,14 +27,17 @@ const Modal = () => {
   const createLead = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/api/lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(leadData),
-      });
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/lead",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(leadData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create lead");
@@ -52,7 +55,7 @@ const Modal = () => {
     }
   };
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const { id, value } = e.target;
     setLeadData((prevData) => ({
       ...prevData,

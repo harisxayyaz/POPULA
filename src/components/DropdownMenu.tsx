@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
 const DropdownMenuComponent = () => {
   const [imageUrl, setImageUrl] = useState<string>(""); // State to hold the image URL
   const router = useRouter();
@@ -20,13 +19,16 @@ const DropdownMenuComponent = () => {
     const fetchPhoto = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/user/me", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://popula-backend-efc1.onrender.com/api/user/me",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();

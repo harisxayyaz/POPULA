@@ -26,49 +26,51 @@ const BusinessForm = () => {
     });
   };
 
-const handleSubmit = async (e: any) => {
-  e.preventDefault();
-  const token = localStorage.getItem("token");
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
 
-  const payload = {
-    businessName: formData.businessName,
-    licenseNumber: formData.licenseNumber,
-    domain: formData.domain,
-    businessEmail: formData.businessEmail,
-    description: formData.description,
-    website: formData.website,
-    address: formData.address,
-    facebookPageId: formData.facebookPageId,
-    instagramPageId: formData.instagramPageId,
-    accessToken: formData.accessToken,
-    totalLeads: formData.totalLeads || 0,
-    amountSpent: formData.amountSpent || 0,
-  };
+    const payload = {
+      businessName: formData.businessName,
+      licenseNumber: formData.licenseNumber,
+      domain: formData.domain,
+      businessEmail: formData.businessEmail,
+      description: formData.description,
+      website: formData.website,
+      address: formData.address,
+      facebookPageId: formData.facebookPageId,
+      instagramPageId: formData.instagramPageId,
+      accessToken: formData.accessToken,
+      totalLeads: formData.totalLeads || 0,
+      amountSpent: formData.amountSpent || 0,
+    };
 
-  try {
-    const response = await fetch("http://localhost:5000/api/business", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload), // Send the payload directly
-    });
+    try {
+      const response = await fetch(
+        "http://popula-backend-efc1.onrender.com/api/business",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload), // Send the payload directly
+        }
+      );
 
-    if (!response.ok) {
-      const errorResponse = await response.json(); // Get the error response
-      console.error("Error response:", errorResponse); // Log the error response
-      throw new Error("Network response was not ok.");
+      if (!response.ok) {
+        const errorResponse = await response.json(); // Get the error response
+        console.error("Error response:", errorResponse); // Log the error response
+        throw new Error("Network response was not ok.");
+      }
+
+      console.log("Business configuration submitted successfully:");
+      // Handle success
+    } catch (error) {
+      console.error("Error submitting business configuration:", error);
+      // Handle error
     }
-
-    console.log("Business configuration submitted successfully:");
-    // Handle success
-  } catch (error) {
-    console.error("Error submitting business configuration:", error);
-    // Handle error
-  }
-};
-
+  };
 
   return (
     <form onSubmit={handleSubmit}>

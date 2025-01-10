@@ -90,39 +90,38 @@ export const columns: ColumnDef<Lead>[] = [
 const LeadActions = ({ lead }: { lead: Lead }) => {
   const [open, setOpen] = useState(false);
 
-const handleDelete = async () => {
-  try {
-    // Send DELETE request to the API with the lead ID
-    const response = await fetch(
-      `http://localhost:5000/api/lead/leads/${lead.id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is saved in localStorage
-        },
+  const handleDelete = async () => {
+    try {
+      // Send DELETE request to the API with the lead ID
+      const response = await fetch(
+        `http://popula-backend-efc1.onrender.com/api/lead/leads/${lead.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is saved in localStorage
+          },
+        }
+      );
+
+      // If the request fails, throw an error
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete the lead.");
       }
-    );
 
-    // If the request fails, throw an error
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to delete the lead.");
+      // Reload the page to reflect changes
+      window.location.reload();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error deleting lead:", error.message);
+      } else {
+        console.error("Error deleting lead:", error);
+      }
+    } finally {
+      setOpen(false); // Close the confirmation dialog
     }
-
-    // Reload the page to reflect changes
-    window.location.reload();
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error deleting lead:", error.message);
-    } else {
-      console.error("Error deleting lead:", error);
-    }
-  } finally {
-    setOpen(false); // Close the confirmation dialog
-  }
-};
-
+  };
 
   return (
     <div className="flex space-x-2">
